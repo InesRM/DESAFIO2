@@ -18,12 +18,29 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->name(),
+            'name' => fake()->unique()->randomElement(['Isabelakis',
+            'Mariopoulou', 'Miriamtheka', 'Aliciciakas', 'Alejandrakis', 'Khattarikolau', 'Jaimeniadis',
+            'Manuelinidis', 'Inesiakas', 'Sofia']),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => bcrypt('1234'), // password
+            'rol' =>  'humano',
             'remember_token' => Str::random(10),
         ];
+        //****************ESTO LO HE HECHO PARA CREAR DIOSES DENTRO DE LOS USUARIOS PRESCINDIENDO DE LA TABLA DIOSES */
+        //  return [
+        //     'name' => fake()->unique()->randomElement(['Zeus', 'Poseidon', 'Hades']),
+        //     'email' => fake()->unique()->safeEmail(),
+        //     'email_verified_at' => now(),
+        //     'password' => bcrypt('1234'), // password
+        //     'rol' => 'dios',
+        //     'remember_token' => Str::random(10),
+        // ];
+    }
+
+    public function dios()
+    {
+        return $this->belongsTo('App\Models\Dios');
     }
 
     /**
