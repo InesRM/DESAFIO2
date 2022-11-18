@@ -21,7 +21,13 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'rol'
     ];
+    //   Esta función se creó para crear dependencias con una tabla dioses que de momento no es necesaria
+    // function dios()
+    // {
+    //     return $this->hasOne('App\Models\Dios');
+    // }
 
     /**
      * The attributes that should be hidden for serialization.
