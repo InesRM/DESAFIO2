@@ -1,8 +1,11 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\UserController;
+//use App\Http\Controllers\API\RegisterController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,3 +24,12 @@ Route::post('/users/login', [AuthController::class, 'login']);
 Route::post('/users/logout', [AuthController::class, 'logout']);
 Route::post('/users/register', [AuthController::class, 'register']);
 
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/users', [userController::class, 'index']);
+    Route::get('/users/mostrarVidaPorNombre/{nombre}', [userController::class, 'mostrarVidaPorNombre'])->middleware('midHumanos');
+    Route::get('/users/mostrarVidaPorId/{id}', [userController::class, 'mostrarVidaPorId'])->middleware('midHumanos');
+    Route::post('/users/crearHumanos', [userController::class, 'crearHumanos'])->middleware(['midDios', 'midHades']);
+    Route::delete('/users/matar/{id}', [userController::class, 'matar'])->middleware('midHades');
+    Route::put('/users/actualizaciondeDios/{id}', [userController::class, 'actualizaciondeDios'])->middleware(['midDios','midHades']);
+
+});

@@ -47,7 +47,7 @@ form.addEventListener('submit', (event) => {
 
 const showError = () => {
     if(email.validity.valueMissing) {
-        emailError.textContent = 'Debe introducir una dirección de correo electrónico.';
+        emailError.textContent = 'El campo no se ajusta a un correo estándar';
     } else if(email.validity.typeMismatch) {
         emailError.textContent = 'El valor introducido debe ser una dirección de correo electrónico.'
     } else if(email.validity.tooShort) {

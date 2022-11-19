@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Dios;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,7 +17,7 @@ class AuthController extends Controller
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $auth = Auth::user();
             //$success['token'] =  $auth->createToken('access_token',["delete","read"])->plainTextToken;
-            $success['token'] =  $auth->createToken('access_token', ['User', 'Dios'])->plainTextToken;
+            $success['token'] =  $auth->createToken('access_token', ['User', 'Dios','Hades'])->plainTextToken;
             $success['name'] =  $auth->name;
             return response()->json(["success" => true, "data" => $success, "message" => "Logged in!"], 200);
         }else {

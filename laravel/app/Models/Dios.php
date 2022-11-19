@@ -1,16 +1,15 @@
 <?php
 
 namespace App\Models;
-
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class Dios extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    protected $table = 'dioses'; // para indicar el plural de la tabla y no sea dioss en Inglés
 
     /**
      * The attributes that are mass assignable.
@@ -24,9 +23,9 @@ class User extends Authenticatable
         'rol'
     ];
 
-    function dios()
+    function user()
     {
-        return $this->hasOne('App\Models\Dios');
+        return $this->belongsTo('App\Models\User'); //solo por esto me ha hecho falta una tabla...
     }
 
     /**
