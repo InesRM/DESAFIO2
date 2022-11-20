@@ -31,6 +31,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/users/crearHumanos', [userController::class, 'crearHumanos'])->middleware(['midDios', 'midHades']);
     Route::delete('/users/matar/{id}', [userController::class, 'matar'])->middleware('midHades');
     Route::put('/users/actualizaciondeDios/{id}', [userController::class, 'actualizaciondeDios'])->middleware(['midDios','midHades']);
-    Route::put('/users/activarHumano/{id}', [userController::class, 'activarHumano']);
+    Route::put('/users/activarHumano/{id}', [userController::class, 'activarHumano'])->middleware('midDios');
+    //Esta ruta ha sido para una prueba, no lo voy a borrar de momento, aunque no se usa aún...pero tengo una idea para usarla en el futuro de la app
     //Route::post ('/users/asignarValoresAleatorios/{id}', [userController::class, 'asiganarValoresAleatorios'])->middleware('midDios');
 });
+
