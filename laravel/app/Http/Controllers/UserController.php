@@ -188,7 +188,7 @@ class UserController extends Controller
     //     }
     //     return response()->json($res, 200);
     // }
-
+  //**********************HA HABIDO UN ERROR EN EL COMMIT CRUD-JS Y FALTABA ESTA Y OTRAS PARTES DEL BACK */
     public function activarHumano($id)
     {
         $valoresAleatorios= ([
