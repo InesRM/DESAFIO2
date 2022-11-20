@@ -25,6 +25,10 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => bcrypt('1234'), // password
             'rol' =>  'humano',
+            'activo' => 0,
+            'donDefecto' => '',
+            'tareas' => '',
+            'vida' =>'',
             'remember_token' => Str::random(10),
         ];
         //****************ESTO LO HE HECHO PARA CREAR DIOSES DENTRO DE LOS USUARIOS PRESCINDIENDO DE LA TABLA DIOSES */

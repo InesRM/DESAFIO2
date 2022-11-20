@@ -21,7 +21,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'rol'
+        'rol',
+        'activo',
+        'donDefecto',
+        'tareas',
+        'vida',
     ];
 
     function dios()

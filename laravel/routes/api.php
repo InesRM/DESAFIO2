@@ -31,5 +31,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/users/crearHumanos', [userController::class, 'crearHumanos'])->middleware(['midDios', 'midHades']);
     Route::delete('/users/matar/{id}', [userController::class, 'matar'])->middleware('midHades');
     Route::put('/users/actualizaciondeDios/{id}', [userController::class, 'actualizaciondeDios'])->middleware(['midDios','midHades']);
-
+    Route::put('/users/activarHumano/{id}', [userController::class, 'activarHumano']);
+    Route::post ('/users/asignarValoresAleatorios/{id}', [userController::class, 'asiganarValoresAleatorios'])->middleware('midDios');
 });
