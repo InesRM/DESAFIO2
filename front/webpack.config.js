@@ -18,7 +18,20 @@ module.exports = {
             },       
             {
                 test: /\.(c|sc|sa)ss$/,
-                use: [ MiniCssExtractPlugin.loader, 'css-loader','sass-loader']
+                use: [ MiniCssExtractPlugin.loader, 
+                    'css-loader',
+                    'sass-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            postcssOptions: {
+                                plugins: () => {
+                                    require('autoprefixer')
+                                }
+                            }
+                        }
+                    }
+                ]
             },
             {
                 test: /\.(jpg|png|jpe?g|gif)$/,

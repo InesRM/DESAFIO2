@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class DiosFactory extends Factory
+class HUmanoFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,12 +17,9 @@ class DiosFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->unique()->randomElement(['Zeus', 'Poseidon', 'Hades']),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => bcrypt('1234'), // password
-            'rol' => 'dios',
-            'remember_token' => Str::random(10),
+            'dios-protector' => fake()->randomElement(['Zeus', 'Poseidon', 'Hades']),//esto está pendiente del algoritmo de asignación de dioses
+            'destino' => 0,
+            'cielo-infierno' =>fake()->randomElement(['Eliseos','Tártaros']),//esto depende de Mario
         ];
     }
 }

@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
-use App\Http\Controllers\AuthController as Auth;
-use Illuminate\Validation\Rules\Exists;
+use App\Http\Controllers\AuthController;
+
+
 class UserController extends Controller
 {
     public function mostrarHumanos()
@@ -48,16 +49,16 @@ class UserController extends Controller
             $name = $request->input('name');
             $email = $request->input('email');
             $password = $request->input('password');
-            $rol = $request->input('rol');
             $new_User = User::create([
                 'name' => $name,
                 'email' => $email,
                 'password' => bcrypt($password),
-                'rol' => $rol,
                 'activo' => false,
-                'donDefecto' => '',
-                'tareas' => '',
-                'vida' => '',
+                'sabiduria' => '',
+                'nobleza' => '',
+                'virtud' => '',
+                'maldad' => '',
+                'audacia' => '',
             ]);
             $res = "guardado un nuevo Humano";
             return response()->json($res, 200);
@@ -188,30 +189,30 @@ class UserController extends Controller
     //     }
     //     return response()->json($res, 200);
     // }
-  //**********************HA HABIDO UN ERROR EN EL COMMIT CRUD-JS Y FALTABA ESTA Y OTRAS PARTES DEL BACK */
+    //**********************HA HABIDO UN ERROR EN EL COMMIT CRUD-JS Y FALTABA ESTA Y OTRAS PARTES DEL BACK */
+
+
+
+
     public function activarHumano($id)
     {
-        $valoresAleatorios= ([
-            [ rand(1,5)],
-            [ rand(1,5)],
-            [ rand(1,5)],
-            [ rand(1,5)],
-            [ rand(1,5)],
-        ]);
 
         $User = User::find($id);
         $User_activo = DB::table('users')->where('id', $id)->get();
 
-        if ($User_activo!=null) {
+    if ($User_activo != null) {
             DB::table('users')->where('id', $id)->update([
                 'activo' => true,
-                'donDefecto' => $valoresAleatorios,
+                'sabiduria' => random_int(1, 5),
+                'nobleza' => random_int(1, 5),
+                'virtud' => random_int(1, 5),
+                'maldad' => random_int(1, 5),
+                'audacia' => random_int(1, 5),
             ]);
             return response()->json("Humano activado", 200);
-
         } else {
             return response()->json("El humano ya estaba activo", 200);
         }
-
     }
 }
+

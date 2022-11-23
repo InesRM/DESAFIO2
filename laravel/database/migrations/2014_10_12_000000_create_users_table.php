@@ -21,9 +21,11 @@ return new class extends Migration
             $table->string('password');
             $table->string('rol');
             $table->boolean('activo');
-            $table->string('donDefecto');
-            $table->string('tareas');
-            $table->string('vida');
+            $table->string('sabiduria');
+            $table->string('nobleza');
+            $table->string('virtud');
+            $table->string('maldad');
+            $table->string('audacia');
             $table->rememberToken();
             $table->timestamps();
         });

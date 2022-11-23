@@ -21,17 +21,18 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'rol',
         'activo',
-        'donDefecto',
-        'tareas',
-        'vida',
+        'sabiduria',
+        'nobleza',
+        'virtud',
+        'maldad',
+        'audacia',
     ];
 
-    function dios()
-    {
-        return $this->hasOne('App\Models\Dios');
-    }
+    // function dios()
+    // {
+    //     return $this->hasOne('App\Models\Dios');
+    // }
 
     /**
      * The attributes that should be hidden for serialization.

@@ -17,29 +17,37 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        return [
-            'name' => fake()->unique()->randomElement(['Isabelakis',
-            'Mariopoulou', 'Miriamtheka', 'Aliciciakas', 'Alejandrakis', 'Khattarikolau', 'Jaimeniadis',
-            'Manuelinidis', 'Inesiakas', 'Sofia']),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => bcrypt('1234'), // password
-            'rol' =>  'humano',
-            'activo' => 0,
-            'donDefecto' => '',
-            'tareas' => '',
-            'vida' =>'',
-            'remember_token' => Str::random(10),
-        ];
-        //****************ESTO LO HE HECHO PARA CREAR DIOSES DENTRO DE LOS USUARIOS PRESCINDIENDO DE LA TABLA DIOSES */
-        //  return [
-        //     'name' => fake()->unique()->randomElement(['Zeus', 'Poseidon', 'Hades']),
+        // return [
+        //     'name' => fake()->unique()->randomElement(['Isabelakis',
+        //     'Mariopoulou', 'Miriamtheka', 'Aliciciakas', 'Alejandrakis', 'Khattarikolau', 'Jaimeniadis',
+        //     'Manuelinidis', 'Inesiakas', 'Sofia']),
         //     'email' => fake()->unique()->safeEmail(),
         //     'email_verified_at' => now(),
         //     'password' => bcrypt('1234'), // password
-        //     'rol' => 'dios',
+        //     'rol' =>  'humano',
+        //     'activo' => 0,
+        //     'sabiduria' => '',
+        //     'nobleza' => '',
+        //     'virtud' => '',
+        //     'maldad' => '',
+        //     'audacia' => '',
         //     'remember_token' => Str::random(10),
         // ];
+        //****************ESTO LO HE HECHO PARA CREAR DIOSES DENTRO DE LOS USUARIOS PRESCINDIENDO DE LA TABLA DIOSES */
+         return [
+            'name' => fake()->unique()->randomElement(['Zeus', 'Poseidon', 'Hades']),
+            'email' => fake()->unique()->safeEmail(),
+            'email_verified_at' => now(),
+            'password' => bcrypt('1234'), // password
+            'rol' => 'dios',
+            'activo' => 0,
+            'sabiduria' => '',
+            'nobleza' => '',
+            'virtud' => '',
+            'maldad' => '',
+            'audacia' => '',
+            'remember_token' => Str::random(10),
+        ];
     }
 
     public function dios()
