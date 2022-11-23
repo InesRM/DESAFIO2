@@ -28,6 +28,7 @@ const validation = () => {
             crearUsuario(usuario).then(console.log);
             event.preventDefault();
         }
+        validation();
     });
 
 
@@ -42,6 +43,7 @@ form.addEventListener('submit', (event) => {
         crearUsuario(usuario).then(console.log);
         event.preventDefault();
     }
+    validation();
 });
 }
 
