@@ -11,4 +11,9 @@ class Humano extends Model
     protected $table = 'humanos';
     protected $fillable =
     ['destino','dios-protector','cielo-infierno'];
+    
+     function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
 }
