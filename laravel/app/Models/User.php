@@ -29,10 +29,10 @@ class User extends Authenticatable
         'audacia',
     ];
 
-    // function dios()
-    // {
-    //     return $this->hasOne('App\Models\Dios');
-    // }
+     function humano()
+     {
+         return $this->hasOne('App\Models\Humano');
+     }
 
     /**
      * The attributes that should be hidden for serialization.
