@@ -11,13 +11,16 @@ return new class extends Migration
      *
      * @return void
      */
+
     public function up()
     {
-        Schema::create('humano', function (Blueprint $table) {
-            $table->id();
+        Schema::create('humanos', function (Blueprint $table) {
+            $table->integer('id_humano');
+            $table->string ('name');
             $table->string('destino');
             $table->string('dios-protector');
             $table->string('cielo-infierno');
+            $table->foreign('id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

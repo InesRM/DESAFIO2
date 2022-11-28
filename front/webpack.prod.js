@@ -22,7 +22,20 @@ module.exports = {
             },
             {
                 test: /\.(c|sc|sa)ss$/,
-                use: [ MiniCssExtractPlugin.loader, 'css-loader','sass-loader']
+                use: [ MiniCssExtractPlugin.loader, 
+                    'css-loader',
+                    'sass-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            postcssOptions: {
+                                plugins: () => {
+                                    require('autoprefixer')
+                                }
+                            }
+                        }
+                    }
+                ]
             },
             {
                 test: /\.(png|jpe?g|gif)$/,
@@ -48,6 +61,7 @@ module.exports = {
         ]
     },
     plugins: [
+       
         new HtmlWebPackPlugin({
             title: 'Mi Webpack App',
             //filename: 'index.html',
@@ -59,8 +73,10 @@ module.exports = {
         }),
         new CopyPlugin({
             patterns: [
-                {from: 'src/assets/', to: 'assets/'}
+                {from: 'src/assets/', to: 'assets/'},
+                {from: 'src/html/*', to: 'html/[name][ext]'}
             ]
         })
+        
     ]
 };

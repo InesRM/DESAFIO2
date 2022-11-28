@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Http\Controllers\AuthController;
-
-
+use GuzzleHttp\Promise\Each;
+use App\Models\Humano;
 class UserController extends Controller
 {
     public function mostrarHumanos()
@@ -43,7 +43,8 @@ class UserController extends Controller
     {
         $id = User::find($request->id);
         $new_User = DB::table('users')->where('id', $id)->get();
-        if ($new_User != null) {
+        $new_Humano= DB::table('humanos')->where('id_humano','=',$this-> $id)->get(); // prueba
+        if ($new_User != null || $new_Humano != null) {
             return response()->json("El usuario ya existe", 200);
         } else {
             $name = $request->input('name');
@@ -60,9 +61,17 @@ class UserController extends Controller
                 'maldad' => '',
                 'audacia' => '',
             ]);
+            $new_Humano = Humano::create([    // Esto nos sirve para cuando se registra un usuario se cree un humano paralelamente
+                'id_humano' => $new_User->id,
+                'name' => $new_User->$name,
+                'destino' => 0,
+                'dios_protector' => '',
+                'cielo-infierno' => '',
+            ]);
             $res = "guardado un nuevo Humano";
             return response()->json($res, 200);
         }
+
     }
     public function matar($idealiminar)
     {
@@ -112,7 +121,6 @@ class UserController extends Controller
         return response()->json($Tareas, 200);
     }
 
-   
     public function activarHumano($id)
     {
 
@@ -133,5 +141,7 @@ class UserController extends Controller
             return response()->json("El humano ya estaba activo", 200);
         }
     }
-}
 
+
+
+    }

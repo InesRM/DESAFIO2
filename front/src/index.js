@@ -1,4 +1,4 @@
-import './css/styles.css';
+import './styles.scss';
 import {iniciar} from './js/componentes';
 import {ancho} from './js/componentes';
 import {registrarse} from './js/componentes';
@@ -9,5 +9,3 @@ init();
 document.getElementById("btn__iniciar-sesion").addEventListener("click", iniciar);
 document.getElementById("btn__registrarse").addEventListener("click", registrarse);
 window.addEventListener("resize", ancho);
-
-
