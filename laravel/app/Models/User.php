@@ -17,10 +17,13 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $primaryKey = 'id';
     protected $fillable = [
+        'id',
         'name',
         'email',
         'password',
+        'rol',
         'activo',
         'sabiduria',
         'nobleza',
@@ -29,10 +32,14 @@ class User extends Authenticatable
         'audacia',
     ];
 
-     function humano()
-     {
-         return $this->hasOne('App\Models\Humano');
-     }
+    function humano()
+    {
+        return $this->hasOne('App\Models\Humano');
+    }
+    function dios()
+    {
+        return $this->hasOne('App\Models\Dios');
+    }
 
     /**
      * The attributes that should be hidden for serialization.

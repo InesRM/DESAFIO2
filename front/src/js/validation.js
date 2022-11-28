@@ -3,6 +3,7 @@ import { crearUsuario } from "./crud-provider";
 const form = document.getElementsByTagName('form')[0];
 const email = document.getElementById('email');
 const emailError = document.querySelector('span.error');
+//const name= document.getElementById('name');
 
 const init = () => {
     validation();
@@ -11,6 +12,7 @@ const init = () => {
 const validation = () => {
     email.addEventListener('input', (event) => {
         if(email.validity.valid) {
+           
             emailError.innerHTML=''; //Restablece el contenido del mensaje
             emailError.className='error'; //Restablece el estado visual el mensaje
         } else { //Si todavía hay error, muestra el error

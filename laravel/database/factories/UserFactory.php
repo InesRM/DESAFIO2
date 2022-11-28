@@ -33,13 +33,13 @@ class UserFactory extends Factory
         //     'audacia' => '',
         //     'remember_token' => Str::random(10),
         // ];
-        //****************ESTO LO HE HECHO PARA CREAR DIOSES DENTRO DE LOS USUARIOS PRESCINDIENDO DE LA TABLA DIOSES */
+        //****************ESTO LO HE HECHO PARA CREAR DIOSES DENTRO DE LOS USUARIOS para inicio sesión de todos */
          return [
-            'name' => fake()->unique()->randomElement(['Zeus', 'Poseidon', 'Hades']),
+            'name' => fake()->unique()->randomElement(['Poseidon', 'Zeus', 'Hades']),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => bcrypt('1234'), // password
-            'rol' => 'dios',
+            'rol' =>  'dios', // es enum se puede cambiar a hades
             'activo' => 0,
             'sabiduria' => '',
             'nobleza' => '',
@@ -50,10 +50,10 @@ class UserFactory extends Factory
         ];
     }
 
-    public function dios()
-    {
-        return $this->belongsTo('App\Models\Dios');
-    }
+    // public function humano()
+    // {
+    //     return $this->belongsTo('App\Models\Humano');
+    // }
 
     /**
      * Indicate that the model's email address should be unverified.

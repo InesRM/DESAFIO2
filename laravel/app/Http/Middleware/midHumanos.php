@@ -16,7 +16,7 @@ class midHumanos
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->user()->tokenCan('User')) {
+        if ($request->user()->tokenCan("User")) {
             return $next($request);
         } else {
             return response()->json("No tienes permisos para realizar esta accion", 200);
