@@ -1,8 +1,8 @@
 import './styles.scss';
-import {iniciar} from './js/componentes';
-import {ancho} from './js/componentes';
-import {registrarse} from './js/componentes';
-import {init} from './js/validation';
+import {iniciar} from './js/login/componentes';
+import {ancho} from './js/login/componentes';
+import {registrarse} from './js/login/componentes';
+import {init} from './js/login/validation';
 
 //FUNCIONES
 init();
