@@ -1,5 +1,5 @@
 import {fetchCaracteristicas} from "../http/httpProvider";
-import {initValidacion} from "./validarCaracteristicas";
+import {validacion} from "./validarCaracteristicas";
 const tablaCaracteristicas = document.getElementById('tablaCaracteristicas');
 const modalCaracteristicas = document.getElementById('modal');
 const titulo = document.getElementById('tituloModal');
@@ -26,8 +26,9 @@ const crearHtmlCampoModal = (nombre, cantidad) => {
     modalCaracteristicas.getElementsByTagName('form')[0].innerHTML += htmlCampo;
 }
 
-export const rellenarTablaCaracteristicas = (caracteristicas) => {
-    
+export const rellenarTablaCaracteristicas = async() => {
+    const caracteristicas = await fetchCaracteristicas();
+
     for (const atributo in caracteristicas) {
         if (Object.hasOwnProperty.call(caracteristicas, atributo)) {
             const cantidad = caracteristicas[atributo];
@@ -36,8 +37,9 @@ export const rellenarTablaCaracteristicas = (caracteristicas) => {
     }
 }
 
-export const rellenarModalCaracterísticas = (caracteristicas) => {
+export const rellenarModalCaracterísticas = async() => {
     // const camposModal = modalCaracteristicas.getElementsByClassName('campo');
+    const caracteristicas = await fetchCaracteristicas();
 
     titulo.innerHTML = 'Editar características';
 
