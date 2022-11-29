@@ -36,3 +36,27 @@ export const updateCaracteristicas = async(user, caracteristicas) => {
     
     return await resp.json(); 
 }
+
+export const insertPreguntaEleccion = async(datos) => {
+
+    const resp = await fetch(urlInsertPruebas
+            + '/insertpruebaeleccion', {
+        method: 'POST',
+        body: JSON.stringify(datos),
+        headers: {'Content-Type': 'application/json'} 
+        });
+
+    return await resp.json();
+}
+
+export const insertPruebaPuntual = async(datos) => {
+
+    const resp = await fetch(urlInsertPruebas
+            + '/insertpruebapuntual', {
+        method: 'POST',
+        body: JSON.stringify(datos),
+        headers: {'Content-Type': 'application/json'}
+        });
+
+    return await resp.json();
+}
