@@ -15,7 +15,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('humanos', function (Blueprint $table) {
-            $table->bigU('id_humano');
+            $table->unsignedBigInteger('id_humano');
             $table->string ('name');
             $table->string('destino')->nullable();
             $table->string('dios-protector')->nullable();

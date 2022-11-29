@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('pruebas_resp_libre', function (Blueprint $table) {
-            $table->id();
+            $table->unsignedBigInteger('id')->primary()->references('id')->on('pruebas_oraculo')->delete('cascade');
+            $table->integer('porcentaje');
             $table->timestamps();
         });
     }

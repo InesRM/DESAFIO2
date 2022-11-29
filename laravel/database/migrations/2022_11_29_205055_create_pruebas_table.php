@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('pruebas', function (Blueprint $table) {
             $table->id();
+            $table->integer('destino');
+            $table->string('titulo');
             $table->timestamps();
         });
     }
