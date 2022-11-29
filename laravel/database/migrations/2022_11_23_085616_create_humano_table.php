@@ -15,11 +15,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('humanos', function (Blueprint $table) {
-            $table->integer('id_humano');
+            $table->bigU('id_humano');
             $table->string ('name');
-            $table->string('destino');
-            $table->string('dios-protector');
-            $table->string('cielo-infierno');
+            $table->string('destino')->nullable();
+            $table->string('dios-protector')->nullable();
+            $table->string('cielo-infierno')->nullable();
             $table->foreign('id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
