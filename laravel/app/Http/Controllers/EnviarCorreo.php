@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use App\UserController\activarHumano;
 class EnviarCorreo extends Controller
 {
+    // Ines
     public static function enviarCorreo(Request $request){
 
         $email = $request->input('email');

@@ -14,7 +14,6 @@ class Humano extends Model
     protected $fillable =
     [
     'id_humano',
-    'name',
     'destino',
     'dios-protector',
     'cielo-infierno'];

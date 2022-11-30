@@ -7,9 +7,8 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\EnviarCorreo;
 use App\Http\Controllers\HumanoController;
 use App\Http\Controllers\PruebasController;
-use App\Hpp\middleware\midDios;
-use App\Hpp\middleware\midHades;
-use App\Hpp\middleware\midHumanos;
+use App\Http\Controllers\UserController;
+
 //use App\Http\Controllers\API\RegisterController;
 /*
 |--------------------------------------------------------------------------

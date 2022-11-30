@@ -11,7 +11,7 @@ use App\Models\Humano;
 use App\Http\Controllers\EnviarCorreo;
 use Illuminate\Support\Facades\Mail;
 
-class UserController extends Controller
+class UserController extends Controller // Ines*************************
 {
     public function mostrarHumanos()
     {
@@ -62,7 +62,6 @@ class UserController extends Controller
             ]);
             $new_Humano = Humano::create([    // Esto nos sirve para cuando se registra un usuario se cree un humano paralelamente
                 'id_humano' => $new_User->id,
-                'name' => $new_User->$name,
                 'destino' => 0,
 
             ]);
