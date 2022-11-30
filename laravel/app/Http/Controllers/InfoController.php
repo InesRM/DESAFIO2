@@ -11,11 +11,8 @@ use Termwind\Components\Raw;
 class InfoController extends Controller {
 
     public function getDestino(Request $request) {
-        echo 'aaasdfasdfasdfaaasdf';
         try {
             $user = Humano::find($request->id);
-
-            print_r($user);
 
             $resp  = response()->json(['destino' => $user->destino], 200);
         }
@@ -29,7 +26,7 @@ class InfoController extends Controller {
     public function updateDestino(Request $request) {
         $datos = $request->all();
 
-        $user = User::find($request->id);
+        $user = Humano::find($request->id);
         $user->destino = $datos['destino'];
 
         try {
