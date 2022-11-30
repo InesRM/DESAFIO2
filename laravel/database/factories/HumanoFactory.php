@@ -19,8 +19,8 @@ class HumanoFactory extends Factory
     {
         return [
             'id_humano' => $this->faker->unique()->numberBetween(1,10),
-            'name' => $this->faker->unique()->randomElement(['Isabelakis','Mariopoulou', 'Miriamtheka', 'Aliciciakas', 'Alejandrakis', 'Khattarikolau', 'Jaimeniadis','Manuelinidis', 'Inesiakas', 'Sofia']),
-            'destino' => "",
+            // 'name' => $this->faker->unique()->randomElement(['Isabelakis','Mariopoulou', 'Miriamtheka', 'Aliciciakas', 'Alejandrakis', 'Khattarikolau', 'Jaimeniadis','Manuelinidis', 'Inesiakas', 'Sofia']),
+            'destino' => 0,
             'dios-protector' => "",
             'cielo-infierno' => "",
         ];

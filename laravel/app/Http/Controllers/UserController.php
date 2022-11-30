@@ -101,15 +101,4 @@ class UserController extends Controller
             return response()->json("El humano ya estaba activo", 200);
         }
     }
-<<<<<<< HEAD
-=======
-
-
-    public function getNombreHumanos(Request $request) {
-        return DB::select('SELECT user.id, user.name FROM user JOIN humanos on user.id = humanos.id
-            WHERE humanos.idDios = ?', [$request->idDios])[0];
-    }
-
-
->>>>>>> dev
 }

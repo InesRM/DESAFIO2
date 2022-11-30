@@ -14,6 +14,6 @@ class HadesSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Dios::factory(1)->create();
+        \App\Models\User::factory(1)->create();
     }
 }

@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class DiosSeeder extends Seeder
+class pruebasValor extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,6 @@ class DiosSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(3)->create(); //Crea 2 registros en la tabla dioses
 
-}
+    }
 }

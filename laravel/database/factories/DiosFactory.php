@@ -20,7 +20,7 @@ class DiosFactory extends Factory
          return [
             'id_dios' => $this->faker->unique()->numberBetween(1, 100),
             'id' => fake()->unique()->randomElement(User::pluck('id')),
-            'name' => fake()->unique()->randomElement(['Zeus', 'Poseidon', 'Hades']),
+            'name' => fake()->unique()->randomElement(['Zeus', 'Poseidon']),
             // 'email' => fake()->unique()->safeEmail(),
             // 'email_verified_at' => now(),
             // 'password' => bcrypt('1234'), // password
