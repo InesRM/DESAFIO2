@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\EnviarCorreo;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Humano;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-
-use Http\Controllers\EnviarCorreo;
-use Http\Controllers\UserController;
+use App\Http\Controllers\UserController;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Mail\SentMessage;
 use function Symfony\Component\String\b;
@@ -23,7 +22,6 @@ public function login(Request $request) {   // en vez de hacerlo con el correo l
 
 if(Auth::attempt(['name' => $request->name, 'password' => $request->password])||Auth::attempt(['email' => $request->email, 'password' => $request->password])){
 $auth = Auth::user();
-
 switch ($auth->rol) { // dependiendo del rol le entrego un token u otro
 case 'humano':
 
@@ -78,12 +76,13 @@ return response()->json(["success"=>false, "message" => "Unauthorised"],202);
         $input['password'] = bcrypt($input['password']);  //También vale: Hash::make($request->password)
         $user = User::create($input);
         $humano=Humano::create($input);
+        EnviarCorreo::enviarCorreo($request); // envio el correo de verificación
+        UserController::activarHumano($request); // activo el humano
         $success['token']  = $user->createToken('nuevo', ["User"])->plainTextToken;
         $success['name'] =  $user->name;
 
-
         return response()->json(["success" => true, "data" => $success, "message" => "User successfully registered!"], 200);
-        //$activar=new EnviarCorreo();
+
     }
 
 

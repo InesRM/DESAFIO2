@@ -8,6 +8,9 @@ use App\Models\User;
 use App\Http\Controllers\AuthController;
 use GuzzleHttp\Promise\Each;
 use App\Models\Humano;
+use App\Http\Controllers\EnviarCorreo;
+use Illuminate\Support\Facades\Mail;
+
 class UserController extends Controller
 {
     public function mostrarHumanos()
@@ -42,8 +45,8 @@ class UserController extends Controller
     public function crearHumanos(Request $request)
     {
         $id = User::find($request->id);
-        $new_User = DB::table('users')->where('id', $id)->get();
-        $new_Humano= DB::table('humanos')->where('id_humano','=',$this-> $id)->get(); // prueba
+        $new_User = DB::table('users')->where('id', $id)->get()[0];
+        $new_Humano = DB::table('humanos')->where('id_humano', '$id')->get(); // prueba
         if ($new_User != null || $new_Humano != null) {
             return response()->json("El usuario ya existe", 200);
         } else {
@@ -55,23 +58,17 @@ class UserController extends Controller
                 'email' => $email,
                 'password' => bcrypt($password),
                 'activo' => false,
-                'sabiduria' => '',
-                'nobleza' => '',
-                'virtud' => '',
-                'maldad' => '',
-                'audacia' => '',
+
             ]);
             $new_Humano = Humano::create([    // Esto nos sirve para cuando se registra un usuario se cree un humano paralelamente
                 'id_humano' => $new_User->id,
                 'name' => $new_User->$name,
                 'destino' => 0,
-                'dios_protector' => '',
-                'cielo-infierno' => '',
+
             ]);
-            $res = "guardado un nuevo Humano";
-            return response()->json($res, 200);
         }
 
+        $res = "guardado un nuevo Humano con id: " . $new_User->id;
     }
     public function matar($idealiminar)
     {
@@ -84,50 +81,12 @@ class UserController extends Controller
         }
     }
 
-    /**Aquí en esta función meteremos todas las actualizaciones
-     * que puedan realizar los dioses con respecto a las tareas
-  a los humanos o todos los poderes que se le quieran conceder,
-  de momento es provisional hasta que mario complete las pruebas....
-  y hagamos los algoritmos de las mismas*/
-    public function ActualizaciondeDios(Request $request, $id)
+    public static function activarHumano($id)
     {
-        $User = User::find($id);
-        $name = $request->input('name');
-        $email = $request->input('email');
-        $password = $request->input('password');
-        $rol = $request->input('rol');
-
-        DB::table('users')->where('id', $id)->update([
-            'name' => $name,
-            'email' => $email,
-            'password' => $password,
-            'rol' => $rol,
-        ]);
-
-        $User = DB::table('users')->get();
-        $res = "Se ha actualizado el juego";
-        return response()->json($res, 200);
-    }
-
-    public function mostrarTareas()
-    {
-        $res = null;
-        $Tareas = DB::table('tareas')->get();
-        return response()->json($Tareas, 200);
-    }
-    function mostrarTareasPorId($id)
-    {
-        $Tareas = DB::table('tareas')->where('id', $id)->get();
-        return response()->json($Tareas, 200);
-    }
-
-    public function activarHumano($id)
-    {
-
-        $User = User::find($id);
+        $user = User::find($id);
         $User_activo = DB::table('users')->where('id', $id)->get();
 
-    if ($User_activo != null) {
+        if ($User_activo != null) {
             DB::table('users')->where('id', $id)->update([
                 'activo' => true,
                 'sabiduria' => random_int(1, 5),
@@ -137,11 +96,9 @@ class UserController extends Controller
                 'audacia' => random_int(1, 5),
             ]);
             return response()->json("Humano activado", 200);
+
         } else {
             return response()->json("El humano ya estaba activo", 200);
         }
     }
-
-
-
-    }
+}

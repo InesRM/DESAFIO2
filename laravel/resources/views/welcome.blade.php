@@ -21,8 +21,6 @@
         </style>
     </head>
     <body class="enviarCorreo">
-        <?php echo "Bienvenido".$nombreUsuario."tu correo es ".$email;?>
-
-        <h1 href=  ?>Activa tu cuenta aquí</h1>
+       <a href= "http://localhost:8000/api/users/activarHumano/$id">Activar tu cuenta</a>
     </body>
 </html>
