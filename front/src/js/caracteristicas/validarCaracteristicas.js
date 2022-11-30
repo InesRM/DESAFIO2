@@ -1,4 +1,5 @@
 import {updateCaracteristicas} from "../http/httpProvider";
+import {rellenarTablaCaracteristicas} from "./caracteristicasComponentes";
 
 
 export const validacion = () => {
@@ -9,6 +10,7 @@ export const validacion = () => {
     form.addEventListener('submit', async(e) => { // async cuando realice petición al servidor
         const data = new FormData(form);
         const caracteristicas = Object.fromEntries(data.entries());
-        await updateCaracteristicas(caracteristicas);
+        updateCaracteristicas(caracteristicas).then(console.log);
+        await rellenarTablaCaracteristicas();
     });
 }

@@ -1,5 +1,6 @@
 import {fetchCaracteristicas} from "../http/httpProvider";
 import {validacion} from "./validarCaracteristicas";
+
 const tablaCaracteristicas = document.getElementById('tablaCaracteristicas');
 const modalCaracteristicas = document.getElementById('modal');
 const titulo = document.getElementById('tituloModal');
@@ -27,6 +28,7 @@ const crearHtmlCampoModal = (nombre, cantidad) => {
 }
 
 export const rellenarTablaCaracteristicas = async() => {
+    tablaCaracteristicas.getElementsByTagName('tbody')[0].innerHTML = '';
     const caracteristicas = await fetchCaracteristicas();
 
     for (const atributo in caracteristicas) {
@@ -36,6 +38,8 @@ export const rellenarTablaCaracteristicas = async() => {
         }
     }
 }
+
+
 
 export const rellenarModalCaracterísticas = async() => {
     // const camposModal = modalCaracteristicas.getElementsByClassName('campo');
@@ -62,4 +66,8 @@ export const rellenarModalCaracterísticas = async() => {
     form.append(boton);
 
     validacion();
+}
+
+const actualizarModalCaracteristicas = () => {
+    modalCaracteristicas.getElementsByTagName('form')[0];
 }

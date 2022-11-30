@@ -1,13 +1,15 @@
 const urlInfo = 'http://localhost:8000/api/info';
+const urlPruebas = 'http://localhost:8000/api/pruebas';
 
 
 export const fetchDestino = async() => {
     try {
-        const resp = await fetch(urlInfo + '/getdestino'); // + el user
+        const resp = await fetch(urlInfo + '/getdestino/1'); // + el user
         if(!resp.ok) throw ('No se pudo realizar la petición');
-        const {cantDestino} = await resp.json();
+        // resp.json().then(console.log);
+        const {destino} = await resp.json();
         
-        return cantDestino;
+        return destino;
     }
     catch (error) {
         throw error;
@@ -16,8 +18,8 @@ export const fetchDestino = async() => {
 
 export const fetchCaracteristicas = async() => {
     try {
-        const resp = await fetch(urlInfo + '/getcaracteristicas'); // + el user
-        if(!respuesta.ok) throw ('No se pudo realizar la petición');
+        const resp = await fetch(urlInfo + '/getcaracteristicas/1'); // + el user
+        if(!resp.ok) throw ('No se pudo realizar la petición');
         const caracteristicas = await resp.json();
 
         return caracteristicas;
@@ -27,8 +29,8 @@ export const fetchCaracteristicas = async() => {
     }
 }
 
-export const updateCaracteristicas = async(user, caracteristicas) => {
-    const resp = await fetch(urlInfo + '/updatecaracteristicas', { // + el user
+export const updateCaracteristicas = async(caracteristicas) => {
+    const resp = await fetch(urlInfo + '/updatecaracteristicas/1', { // + el user
         method: 'PUT', 
         body: JSON.stringify(caracteristicas),
         headers: {'Content-Type': 'application/json'} 
@@ -39,7 +41,7 @@ export const updateCaracteristicas = async(user, caracteristicas) => {
 
 export const insertPreguntaEleccion = async(datos) => {
 
-    const resp = await fetch(urlInsertPruebas
+    const resp = await fetch(urlPruebas
             + '/insertpruebaeleccion', {
         method: 'POST',
         body: JSON.stringify(datos),
@@ -51,7 +53,7 @@ export const insertPreguntaEleccion = async(datos) => {
 
 export const insertPruebaPuntual = async(datos) => {
 
-    const resp = await fetch(urlInsertPruebas
+    const resp = await fetch(urlPruebas
             + '/insertpruebapuntual', {
         method: 'POST',
         body: JSON.stringify(datos),
