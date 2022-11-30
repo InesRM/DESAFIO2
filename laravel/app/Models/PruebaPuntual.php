@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class PruebaPuntual extends Model
 {
     use HasFactory;
+
+    protected $table = 'pruebas_puntuales';
+    public $incrementing = false;
+
 }

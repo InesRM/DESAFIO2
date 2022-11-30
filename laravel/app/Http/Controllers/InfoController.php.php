@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Humano;
 use Illuminate\Support\Facades\Redis;
 use Termwind\Components\Raw;
 
 class InfoController extends Controller {
 
     public function getDestino(Request $request) {
-
+        echo 'aaasdfasdfasdfaaasdf';
         try {
-            $user = User::find($request->id);
+            $user = Humano::find($request->id);
+
+            print_r($user);
 
             $resp  = response()->json(['destino' => $user->destino], 200);
         }

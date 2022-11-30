@@ -15,12 +15,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('humanos', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_humano');
-            $table->string ('name');
-            $table->string('destino')->nullable();
+            $table->unsignedBigInteger('id_humano')->primary()->references('id')->on('users')->delete('cascade');
+            // $table->string ('name');
+            $table->integer('destino')->nullable();
             $table->string('dios-protector')->nullable();
             $table->string('cielo-infierno')->nullable();
-            $table->foreign('id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreign('id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('humano');
+        Schema::dropIfExists('humanos');
     }
 };

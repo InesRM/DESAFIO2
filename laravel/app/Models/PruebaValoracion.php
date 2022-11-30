@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PruebaValoracion extends Model
 {
     use HasFactory;
+
+    protected $table = 'pruebas_valoracion';
+    public $incrementing = false;
 }

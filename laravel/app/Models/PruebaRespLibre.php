@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PruebaRespLibre extends Model
 {
     use HasFactory;
+
+    protected $table = 'pruebas_resp_libre';
+    public $incrementing = false;
 }
