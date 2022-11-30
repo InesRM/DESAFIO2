@@ -11,16 +11,12 @@ return new class extends Migration
      *
      * @return void
      */
-
     public function up()
     {
-        Schema::create('humanos', function (Blueprint $table) {
-            $table->integer('id_humano');
-            $table->string ('name');
-            $table->string('destino');
-            $table->string('dios-protector');
-            $table->string('cielo-infierno');
-            $table->foreign('id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+        Schema::create('pruebas_valoracion', function (Blueprint $table) {
+            $table->unsignedBigInteger('id')->primary()->references('id')->on('pruebas_oraculo')->delete('cascade');
+            $table->integer('respuesta');
+            $table->string('atributo');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('humano');
+        Schema::dropIfExists('pruebas_valoracion');
     }
 };

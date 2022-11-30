@@ -5,7 +5,9 @@ use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\HumanoController;
+use App\Http\Controllers\PruebasController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\InfoController;
 
 //use App\Http\Controllers\API\RegisterController;
 /*
@@ -32,13 +34,26 @@ Route::post('/users/register', [AuthController::class, 'register']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/users', [userController::class, 'index']);
     Route::put('/humanos/AsignarDios/{id}', [HumanoController::class, 'AsignarDios']);
-    Route::get('/users/mostrarVidaPorNombre/{nombre}', [userController::class, 'mostrarVidaPorNombre'])->middleware('midHumanos');
-    Route::get('/users/mostrarVidaPorId/{id}', [userController::class, 'mostrarVidaPorId'])->middleware('midHumanos');
+    // Route::get('/users/mostrarVidaPorNombre/{nombre}', [userController::class, 'mostrarVidaPorNombre'])->middleware('midHumanos');
+    // Route::get('/users/mostrarVidaPorId/{id}', [userController::class, 'mostrarVidaPorId'])->middleware('midHumanos');
     Route::post('/users/crearHumanos', [userController::class, 'crearHumanos'])->middleware(['midDios', 'midHades']);
-    Route::delete('/users/matar/{id}', [userController::class, 'matar'])->middleware('midHades');
-    Route::put('/users/actualizaciondeDios/{id}', [userController::class, 'actualizaciondeDios'])->middleware(['midDios','midHades']);
+    // Route::delete('/users/matar/{id}', [userController::class, 'matar'])->middleware('midHades');
+    // Route::put('/users/actualizaciondeDios/{id}', [userController::class, 'actualizaciondeDios'])->middleware(['midDios','midHades']);
     Route::put('/users/activarHumano/{id}', [UserController::class, 'activarHumano']);
     //Esta ruta ha sido para una prueba, no lo voy a borrar de momento, aunque no se usa aún...pero tengo una idea para usarla en el futuro de la app
     //Route::post ('/users/asignarValoresAleatorios/{id}', [userController::class, 'asiganarValoresAleatorios'])->middleware('midDios');
 });
 
+
+Route::controller(InfoController::class)->prefix('info')->group(function() {
+    Route::get('getdestino/{id}', 'getDestino');
+    Route::put('updatedestino/{id}', 'updateDestino');
+    Route::get('getcaracteristicas/{id}', 'getCaracteristicas');
+    Route::put('updatecaracteristicas/{id}', 'updateCaracteristicas');
+});
+
+Route::controller(PruebasController::class)->prefix('pruebas')->group(function() {
+    Route::post('insertpruebaeleccion', 'insertPruebaEleccion');
+    Route::post('insertpruebapuntual', 'insertPruebaPuntual');
+    Route::get('getpruebas', 'getPruebas');
+});

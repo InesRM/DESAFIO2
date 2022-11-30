@@ -143,5 +143,10 @@ class UserController extends Controller
     }
 
 
-
+    public function getNombreHumanos(Request $request) {
+        return DB::select('SELECT user.id, user.name FROM user JOIN humanos on user.id = humanos.id
+            WHERE humanos.idDios = ?', [$request->idDios])[0];
     }
+
+
+}
