@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login y Registro</title>
+    <title>Humano</title>
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link
@@ -13,50 +13,30 @@
 
 <body>
 
-<div class="container">
-  <div class="card mb-3 destinoCard">
-    <div
-      class="card-header bg-primary text-white d-flex justify-content-center"
-    >
-      <h5>Destino</h5>
-    </div>
-    <div class="card-body h3">
-      <span class="d-flex justify-content-center" id="contDestino"></span>
-    </div>
-  </div>
-
-  <div class="row">
-    <table class="table tablaCaracteristicas" id="tablaCaracteristicas">
-      <tbody></tbody>
-    </table>
-  </div>
-
-  <!--MODAL CAMBIAR CARACTERÏSTICAS-->
-  <button
-    type="button"
-    class="btn btn-primary"
-    data-mdb-toggle="modal"
-    data-mdb-target="#modal"
-  >
-    Launch demo modal
-  </button>
-
-  <div class="modal" tabindex="-1" id="modal" style="display: block">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="tituloModal"></h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body"></div>
+  <div class="container">
+    <div class="card mb-3 destinoCard">
+      <div
+        class="card-header bg-primary text-white d-flex justify-content-center"
+      >
+        <h5>Destino</h5>
+      </div>
+      <div class="card-body h3">
+        <span class="d-flex justify-content-center" id="contDestino"></span>
       </div>
     </div>
+
+    <div class="row">
+      <table class="table tablaCaracteristicas" id="tablaCaracteristicas">
+        <thead>
+          <tr>
+            <th scope="col" class="text-center">Atributo</th>
+            <th scope="col" class="text-center">Nivel</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
   </div>
-</div>
+
 </body>
 </html>

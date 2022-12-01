@@ -1,10 +1,12 @@
 import './styles.scss';
+import * as bootstrap from 'bootstrap';
+
 import {iniciar} from './js/login/componentes';
 import {ancho} from './js/login/componentes';
 import {registrarse} from './js/login/componentes';
 import {init} from './js/login/validation';
-import './js/pruebas/pruebas50/validacionPrueba50';
-import './js/pruebas/pruebasPuntuales/validacionPruebaPuntual';
+// import './js/pruebas/pruebas50/validacionPrueba50';
+// import './js/pruebas/pruebasPuntuales/validacionPruebaPuntual';
 
 //FUNCIONES
 init();
