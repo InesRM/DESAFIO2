@@ -21,8 +21,6 @@ const filesHTML = [
     }
 ]
 
-
-
 module.exports = {
     mode: 'development',
     devServer: {
@@ -74,6 +72,7 @@ module.exports = {
         interfazHumano: './src/js/initInterfaces/interfazHumano.js',
         interfazDios: './src/js/initInterfaces/interfazDios.js',
         crearPruebas: './src/js/initInterfaces/crearPruebas.js'
+
     },
     optimization: {},
     plugins: [

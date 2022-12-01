@@ -3,56 +3,55 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\EnviarCorreo;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Humano;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-
-use Http\Controllers\EnviarCorreo;
-use Http\Controllers\UserController;
+use App\Http\Controllers\UserController;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Mail\SentMessage;
 use function Symfony\Component\String\b;
 
 class AuthController extends Controller
 {
-public function login(Request $request) {   // en vez de hacerlo con el correo lo hago con el nombre.
+    public function login(Request $request)
+    {   // en vez de hacerlo con el correo lo hago con el nombre.
         // no es determinante, va un poco a gusto de cad uno.
         // con un or en el if podrían valer los dos.
 
-if(Auth::attempt(['name' => $request->name, 'password' => $request->password])||Auth::attempt(['email' => $request->email, 'password' => $request->password])){
-$auth = Auth::user();
+        if (Auth::attempt(['name' => $request->name, 'password' => $request->password]) || Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            $auth = Auth::user();
 
-switch ($auth->rol) { // dependiendo del rol le entrego un token u otro
-case 'humano':
+            switch ($auth->rol) { // dependiendo del rol le entrego un token u otro
+                case 'humano':
 
-$token['nombre'] = 'tokenUser';
-$token['hab'] = ['humano'];
-break;
+                    $token['nombre'] = 'tokenUser';
+                    $token['hab'] = ['humano'];
+                    break;
 
-case 'dios':
+                case 'dios':
 
-$token['nombre'] = 'tokenDios';
-$token['hab'] = ['dios'];
-break;
+                    $token['nombre'] = 'tokenDios';
+                    $token['hab'] = ['dios'];
+                    break;
 
-case 'hades':
+                case 'hades':
 
-$token['nombre'] = 'tokenHades';
-$token['hab'] = ['hades'];
-break;
-}
+                    $token['nombre'] = 'tokenHades';
+                    $token['hab'] = ['hades'];
+                    break;
+            }
 
-$success['token'] =  $auth->createToken($token['nombre'], $token['hab'])->plainTextToken;
-$success['name'] =  $auth->name;
+            $success['token'] =  $auth->createToken($token['nombre'], $token['hab'])->plainTextToken;
+            $success['name'] =  $auth->name;
 
-return response()->json(["success"=>true,"data"=>$success, "message" => "Logged in!"],200);
-}
-else{
-return response()->json(["success"=>false, "message" => "Unauthorised"],202);
-}
-}
+            return response()->json(["success" => true, "data" => $success, "message" => "Logged in!"], 200);
+        } else {
+            return response()->json(["success" => false, "message" => "Unauthorised"], 202);
+        }
+    }
 
 
     public function register(Request $request)
@@ -77,13 +76,13 @@ return response()->json(["success"=>false, "message" => "Unauthorised"],202);
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);  //También vale: Hash::make($request->password)
         $user = User::create($input);
-        $humano=Humano::create($input);
+        $humano = Humano::create($input);
+        EnviarCorreo::enviarCorreo($request); // envio el correo de verificación
+        UserController::activarHumano($input); // activo el humano
         $success['token']  = $user->createToken('nuevo', ["User"])->plainTextToken;
         $success['name'] =  $user->name;
 
-
         return response()->json(["success" => true, "data" => $success, "message" => "User successfully registered!"], 200);
-        //$activar=new EnviarCorreo();
     }
 
 
@@ -96,8 +95,4 @@ return response()->json(["success"=>false, "message" => "Unauthorised"],202);
             return response()->json(["success" => false, "message" => "Unauthorised"], 202);
         }
     }
-
-
 }
-
-

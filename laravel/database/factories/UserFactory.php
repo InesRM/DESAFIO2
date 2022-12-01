@@ -50,10 +50,10 @@ class UserFactory extends Factory
         ];
     }
 
-    // public function humano()
-    // {
-    //     return $this->belongsTo('App\Models\Humano');
-    // }
+    public function humano()
+    {
+        return $this->hasOne('App\Models\Humano');
+    }
 
     /**
      * Indicate that the model's email address should be unverified.

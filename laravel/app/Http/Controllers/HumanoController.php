@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Humano;
-class HumanoController extends Controller
+class HumanoController extends Controller // INES***********************
 {
     public function AsignarDios($id_humano){
         $humano= Humano::find($id_humano, 'id_humano');

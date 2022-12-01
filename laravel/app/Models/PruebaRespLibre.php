@@ -11,4 +11,5 @@ class PruebaRespLibre extends Model
 
     protected $table = 'pruebas_resp_libre';
     public $incrementing = false;
+
 }

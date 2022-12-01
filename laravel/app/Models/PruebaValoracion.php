@@ -10,5 +10,18 @@ class PruebaValoracion extends Model
     use HasFactory;
 
     protected $table = 'pruebas_valoracion';
+
     public $incrementing = false;
+
+    protected $fillable = [
+        'id',
+        'respuesta',
+        'atributo',
+
+    ];
+
+    public function prueba()
+    {
+        return $this->belongsTo(Prueba::class);
+    }
 }
