@@ -2,8 +2,8 @@ import {fetchCaracteristicas} from "../http/httpProvider";
 import {validacion} from "./validarCaracteristicas";
 
 const tablaCaracteristicas = document.getElementById('tablaCaracteristicas');
-const modalCaracteristicas = document.getElementById('modal');
-const titulo = document.getElementById('tituloModal');
+const modalCaracteristicas = document.getElementById('modalCaracteristicas');
+const titulo = document.getElementById('tituloModalCaracteristicas');
 
 const crearHtmlFila = (nombre, cantidad) => {
     const htmlFila = `

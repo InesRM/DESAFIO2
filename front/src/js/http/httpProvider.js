@@ -1,5 +1,5 @@
-const urlInfo = 'http://localhost:8000/api/info';
-const urlPruebas = 'http://localhost:8000/api/pruebas';
+const urlInfo = 'http://127.0.0.1:8000/api/info';
+const urlPruebas = 'http://127.0.0.1:8000/api/pruebas';
 
 
 export const fetchDestino = async() => {
@@ -30,12 +30,13 @@ export const fetchCaracteristicas = async() => {
 }
 
 export const updateCaracteristicas = async(caracteristicas) => {
+
     const resp = await fetch(urlInfo + '/updatecaracteristicas/1', { // + el user
         method: 'PUT', 
         body: JSON.stringify(caracteristicas),
         headers: {'Content-Type': 'application/json'} 
     });
-    
+
     return await resp.json(); 
 }
 

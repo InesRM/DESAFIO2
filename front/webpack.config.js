@@ -7,8 +7,17 @@ const filesHTML = [
         filename: 'index.html',
         chunks: ['index']
     }, 
-    {   filename: './html/prueba2.html',
-        chunks: ['prueba', 'registro']
+    {   
+        filename: './html/interfazHumano.html',
+        chunks: ['interfazHumano']
+    },
+    {   
+        filename: './html/interfazDios.html',
+        chunks: ['interfazDios']
+    },
+    {
+        filename: './html/crearPruebas.html',
+        chunks: ['crearPruebas']
     }
 ]
 
@@ -60,8 +69,10 @@ module.exports = {
     },
     entry: {
         index: './src/index.js',
-        prueba: './src/js/probando.js',
-        registro: './src/js/registro.js'
+        interfazHumano: './src/js/initInterfaces/interfazHumano.js',
+        interfazDios: './src/js/initInterfaces/interfazDios.js',
+        crearPruebas: './src/js/initInterfaces/crearPruebas.js'
+
     },
     optimization: {},
     plugins: [
