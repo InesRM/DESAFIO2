@@ -14,6 +14,13 @@ class UserFactory extends Factory
      * Define the model's default state.
      *
      * @return array<string, mixed>
+     * @author Ines
+     */
+    /**
+     * NOTA:********************
+     * Se ha creado esta factory para crear tanto dioses como humanos dentro de la misma tabla
+     * tienen pequeñas variantes en los campos por lo que se tienen que comentar unos para crear otros en los factories
+     * y vicerversa, humanos se crean 10 y dioses 3
      */
     public function definition()
     {

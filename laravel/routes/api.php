@@ -29,13 +29,13 @@ Route::post('/users/login', [AuthController::class, 'login']);
 Route::post('/users/logout', [AuthController::class, 'logout']);
 Route::post('/users/register', [AuthController::class, 'register']);
 Route::post('enviarCorreo', [EnviarCorreo::class, 'enviarCorreo']);
-Route::get('/users/activarHumano/{id}',[UserController::class, 'activarHumano']);
+Route::get('/users/activarHumano/{email}',[UserController::class, 'activarHumano']);
+Route::get('/users/AsignarDios/{id_humano}', [UserController::class, 'AsignarDios']);
 
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/users', [userController::class, 'index']);
-    Route::put('/humanos/AsignarDios/{id}', [HumanoController::class, 'AsignarDios']);
-    Route::get('/users/mostrarVidaPorNombre/{nombre}', [userController::class, 'mostrarVidaPorNombre'])->middleware(['midHumanos']);
+    //Route::get('/users/mostrarVidaPorNombre/{nombre}', [userController::class, 'mostrarVidaPorNombre'])->middleware(['midHumanos']);
     // Route::get('/users/mostrarVidaPorId/{id}', [userController::class, 'mostrarVidaPorId'])->middleware('midHumanos');
     Route::post('/users/crearHumanos', [userController::class, 'crearHumanos'])->middleware(['midDios', 'midHades']);
     Route::delete('/users/matar/{id}', [userController::class, 'matar'])->middleware(['midHades']);

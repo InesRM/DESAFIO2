@@ -5,6 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Summary of Humano
+ * @property int $id_humano
+ *@author Ines
+ *
+ */
 class Humano extends Model
 {
     use HasFactory;

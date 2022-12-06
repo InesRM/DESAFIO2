@@ -10,7 +10,9 @@ return new class extends Migration
      * Run the migrations.
      *
      * @return void
+     * @author Ines
      */
+
 
     public function up()
     {
@@ -20,7 +22,6 @@ return new class extends Migration
             $table->integer('destino')->nullable();
             $table->string('dios-protector')->nullable();
             $table->string('cielo-infierno')->nullable();
-            // $table->foreign('id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

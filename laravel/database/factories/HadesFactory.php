@@ -14,32 +14,29 @@ class HadesFactory extends Factory
      * Define the model's default state.
      *
      * @return array<string, mixed>
+     * @author Ines
      */
+
     public function definition()
     {
         return [
             'id_dios' => $this->faker->unique()->randomNumber(),
             'id' => fake()->unique()->randomElement(User::pluck('id')),
             'name' => fake()->unique()->randomElement(['Hades']),
-            // 'email' => fake()->unique()->safeEmail(),
-            // 'email_verified_at' => now(),
-            // 'password' => bcrypt('1234'), // password
-            // 'rol' => 'Hades',
-            // 'activo' => 0,
-            'sabiduria' => '',
-            'nobleza' => '',
-            'virtud' => '',
-            'maldad' => '',
-            'audacia' => '',
+            // 'sabiduria' => '', Estos datos se rellenan después
+            // 'nobleza' => '',
+            // 'virtud' => '',
+            // 'maldad' => '',
+            // 'audacia' => '',
             // 'remember_token' => Str::random(10),
         ];
     }
 
-    function dios()
-    {
-        return $this->belongsTo('App\Models\Dios');
+    // function dios()
+    // {
+    //     return $this->belongsTo('App\Models\Dios');
 
-    }
+    // }
 
     function user()
     {

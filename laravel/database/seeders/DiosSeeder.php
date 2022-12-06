@@ -14,7 +14,7 @@ class DiosSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(3)->create(); //Crea 2 registros en la tabla dioses
+        \App\Models\User::factory(2)->create(); //Crea 2 registros en la tabla dioses
 
 }
 }

@@ -10,6 +10,15 @@ use GuzzleHttp\Promise\Each;
 use App\Models\Humano;
 use App\Http\Controllers\EnviarCorreo;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\HumanoController\AsignarDios;
+
+/**
+ * @group Humano
+ * APIs para la gestión de humanos
+ * @package App\Http\Controllers\API
+ * @author Ines
+ */
+
 
 class UserController extends Controller // Ines*************************
 {
@@ -80,13 +89,13 @@ class UserController extends Controller // Ines*************************
         }
     }
 
-    public static function activarHumano($id)
+    public static function activarHumano($email)
     {
-        $user = User::find($id);
-        $User_activo = DB::table('users')->where('id', $id)->get();
 
-        if ($User_activo != null) {
-            DB::table('users')->where('id', $id)->update([
+        $user = DB::table('users')->where('email', $email)->get();
+
+        if ($email != null) {
+            DB::table('users')->where('email', $email)->update([
                 'activo' => true,
                 'sabiduria' => random_int(1, 5),
                 'nobleza' => random_int(1, 5),
@@ -94,10 +103,14 @@ class UserController extends Controller // Ines*************************
                 'maldad' => random_int(1, 5),
                 'audacia' => random_int(1, 5),
             ]);
-            return response()->json("Humano activado", 200);
 
+            $humano = DB::table('humanos')->where('id_humano', $user[0]->id)->get('id_humano');
+            HumanoController::AsignarDios($humano[0]->id_humano);
+
+            return redirect('http://localhost:8080/html/landing.html');
         } else {
-            return response()->json("El humano ya estaba activo", 200);
+            // return response()->json("El humano ya estaba activo", 200);
+            return redirect('http://localhost:8080/index.html');
         }
     }
 }
