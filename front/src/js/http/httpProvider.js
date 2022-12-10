@@ -73,7 +73,6 @@ export const insertPreguntaEleccion = async(datos) => {
 }
 
 export const insertPruebaPuntual = async(datos) => {
-
     const resp = await fetch(urlPruebas
             + '/insertpruebapuntual', {
         method: 'POST',
@@ -100,16 +99,40 @@ export const fetchPruebas = async() => {
 
 export const fetchHumanos = async() => {
     try {
-        const resp = await fetch(urlInfo + '/gethumanos');
+        const resp = await fetch(urlInfo + '/gethumanos/1');
         if (!resp.ok) throw ('No se pudo realizar la petición');
         
         const humanos = await resp.json();
 
-        console.log(humanos);
         return humanos;
     }
     catch (error) {
         throw error;
     }
+}
+
+export const fetchAsigPruebas = async() =>  { // CAMBIAR NOMBRE
+    try {
+        const resp = await fetch(urlPruebas + '/gethumanosasig/1'); // + el dios
+        if(!resp.ok) throw ('No se pudo realizar la petición');
+        const humanosAsig = await resp.json();
+        console.warn(humanosAsig);
+
+        return humanosAsig;
+    }
+    catch (error) {
+        throw error;
+    }
+}
+
+export const asignarPruebas = async(asignacion) => {
+    const resp = await fetch(urlPruebas
+        + '/asignarprueba', {
+    method: 'POST',
+    body: JSON.stringify(asignacion),
+    headers: {'Content-Type': 'application/json'}
+    });
+
+    return await resp.json();
 }
 

@@ -1,17 +1,24 @@
-const {fetchPruebas} = require("../http/httpProvider");
+import {cargarHumanosLs} from "../localStorage/localStorage";
+
+const {asignarPruebas, fetchHumanos} = require("../http/httpProvider");
 
 let contTarjetasPrueba = document.querySelectorAll('.contcontenedorTarjetasPruebas')[0];
 let contTarjetasHumano = document.querySelectorAll('.contenedorTarjetasHumanos')[0];
 
 
 const crearTarjHumanoPruebaHtml = (tarjetaPrueba, nombre) => {
-    console.warn(tarjetaPrueba);
+    // console.warn(tarjetaPrueba);
 
-    const html = `
-        <li class="list-group-item">${(nombre)}</li>
-    `;
+    let tarjDiv = document.createElement('li');
+    tarjDiv.classList.add('list-group-item');
+    tarjDiv.innerHTML = nombre;
 
-    tarjetaPrueba.innerHtml += html;
+    // const html = `
+    //     <li class="list-group-item">${(nombre)}</li>
+    // `;
+
+    tarjetaPrueba.append(tarjDiv);
+    // console.log(tarjetaPrueba.innerHTML);
 }
 
 const crearTarjHumanoHtml = (humano) => {
@@ -30,9 +37,9 @@ const crearTarjHumanoHtml = (humano) => {
 
     tarjDiv.innerHTML = html;
 
-    // tarjDiv.addEventListener('dragstart', e => {
-    //     e.dataTransfer.setData('text', e.target.id)
-    // });
+    tarjDiv.addEventListener('dragstart', e => {
+        e.dataTransfer.setData('text', e.target.id)
+    });
 
     contTarjetasHumano.append(tarjDiv);
 
@@ -42,7 +49,7 @@ const crearTarjHumanoHtml = (humano) => {
 
 const crearTarjPrueba = (prueba, tipo) => {
     let tarjDiv = document.createElement('div');
-    tarjDiv.classList.add('accordion', 'mb-4', 'rounded-3');
+    tarjDiv.classList.add('accordion', 'mb-4', 'rounded-3', 'tarjPrueba');
     tarjDiv.id = 'p' + prueba.id;
     
     const html = `
@@ -52,7 +59,7 @@ const crearTarjPrueba = (prueba, tipo) => {
                 class="accordion-button "
                 type="button"
                 data-bs-toggle="collapse"
-                data-bs-target="#prueba1"
+                data-bs-target="#desp${(tarjDiv.id)}"
                 aria-expanded="true"
                 aria-controls="collapseOne"
                 >
@@ -62,6 +69,7 @@ const crearTarjPrueba = (prueba, tipo) => {
             <ul
                 class="accordion-collapse collapse list-group contenedorTarjetasPrueba"
                 aria-labelledby="headingOne"
+                id="desp${(tarjDiv.id)}"
             >
             </ul>
         </div>
@@ -70,26 +78,42 @@ const crearTarjPrueba = (prueba, tipo) => {
     tarjDiv.innerHTML = html;
     contTarjetasPrueba.append(tarjDiv);
 
-    // tarjDiv.addEventListener('dragover', e => {
-    //     e.preventDefault();
-    // });
+    tarjDiv.addEventListener('dragover', e => {
+        e.preventDefault();
+    });
 
-    // tarjDiv.addEventListener('drop', e => {
-    //     const data = e.dataTransfer.getData('text');
-    //     console.log(tarjDiv.getElementsByTagName('ul')[0]);
-    //     console.log(document.getElementById(data).nombre);
-    //     crearTarjHumanoPruebaHtml(tarjDiv.getElementsByTagName('ul')[0], document.getElementById(data).value);
-    //     console.log(data);
+    tarjDiv.addEventListener('drop', async(e) => {
+        const data = e.dataTransfer.getData('text');
+        const asig = {
+            idPrueba : prueba.id,
+            idHumano : parseInt(data.substring(1))
+        }
+        await asignarPruebas(asig);
+        crearTarjHumanoPruebaHtml(tarjDiv.getElementsByTagName('ul')[0], document.getElementById(data).nombre);
 
-    // });
+    });
 
     return tarjDiv;
 
 }
 
+export const pintarAsignarPruebas = async(humanosPruebas, humanos) => { 
+
+    let idPrueba = humanosPruebas[0].id;
+    let tarj = document.getElementById('despp' + idPrueba);    
+    for (const humanoPrueba of humanosPruebas) {
+        if (humanoPrueba.idPrueba !== idPrueba) {
+            idPrueba = humanoPrueba.idPrueba;
+            tarj = document.getElementById('despp' + idPrueba); 
+        }
+        
+        crearTarjHumanoPruebaHtml(tarj, humanos.filter(h => {return h.id === humanoPrueba.idHumano})[0].name);
+    }
+}
+
 export const rellenarContHumanos = (humanos)  => {
     for (const humano of humanos) {
-        console.warn(humano);
+        // console.warn(humano);
         crearTarjHumanoHtml(humano);
     }
 }
