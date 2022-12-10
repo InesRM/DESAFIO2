@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\EnviarCorreo;
 use App\Http\Controllers\HumanoController;
+use App\Http\Controllers\InfoController;
 use App\Http\Controllers\PruebasController;
 use App\Http\Controllers\UserController;
 
@@ -42,15 +43,21 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 
-Route::controller(InfoController::class)->prefix('info')->group(function() {
+Route::controller(InfoController::class)->prefix('cosa')->group(function() {
+
     Route::get('getdestino/{id}', 'getDestino');
     Route::put('updatedestino/{id}', 'updateDestino');
     Route::get('getcaracteristicas/{id}', 'getCaracteristicas');
     Route::put('updatecaracteristicas/{id}', 'updateCaracteristicas');
+    Route::put('updatenombre/{id}', 'updateNombre');
+    Route::get('gethumanos/{idDios}', 'getHumanos'); // gethumanos/{idDios}
 });
+
 
 Route::controller(PruebasController::class)->prefix('pruebas')->group(function() {
     Route::post('insertpruebaeleccion', 'insertPruebaEleccion');
     Route::post('insertpruebapuntual', 'insertPruebaPuntual');
     Route::get('getpruebas', 'getPruebas');
+    Route::get('gethumanosasig/{id}', 'getHumanosAsig');
+    Route::post('asignarprueba', 'asignarPrueba');
 });
