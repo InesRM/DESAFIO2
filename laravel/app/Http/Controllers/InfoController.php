@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\Humano;
 use Illuminate\Support\Facades\Redis;
 use Termwind\Components\Raw;
+use Illuminate\Support\Facades\DB;
+
 
 class InfoController extends Controller {
 
@@ -62,10 +64,10 @@ class InfoController extends Controller {
         return $resp;
     }
 
-    public function updateCaracteristicas(Request $request) {
+    public function updateCaracteristicas($id, Request $request) {
         $datos = $request->all();
 
-        $user = User::find($request->id);
+        $user = User::find($id);
 
         foreach ($datos as $caracterisitica => $valor) { // este bucle actualiza sólo las características que no están vacías
             if ($valor != '') $user->{($caracterisitica)} = $valor;
@@ -78,6 +80,19 @@ class InfoController extends Controller {
         }
         catch (\Exception $e) {
             $resp = response()->json(['mensaje' => 'ha surgido un error'], 204);
+        }
+
+        return $resp;
+    }
+
+    public function getHumanos($idDios) { // HACER JOIN Y WHERE IDDIOS = AL DEL DIOS Q LO HACE
+        try {
+            $humanos = DB::select('SELECT id, name, sabiduria, nobleza, virtud, maldad, audacia FROM users
+                JOIN humanos ON users.id = humanos.id_humano WHERE humanos.idDios = ?', [$idDios]);
+            $resp = response()->json($humanos, 200);
+        }
+        catch (\Exception $e) {
+            $resp = response()->json(['mensaje' => 'ha surgido un error']);
         }
 
         return $resp;

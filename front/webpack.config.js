@@ -18,6 +18,10 @@ const filesHTML = [
     {
         filename: './html/crearPruebas.html',
         chunks: ['crearPruebas']
+    },
+    {
+        filename: './html/asignarPruebas.html',
+        chunks: ['asignarPruebas']
     }
 ]
 
@@ -71,8 +75,8 @@ module.exports = {
         index: './src/index.js',
         interfazHumano: './src/js/initInterfaces/interfazHumano.js',
         interfazDios: './src/js/initInterfaces/interfazDios.js',
-        crearPruebas: './src/js/initInterfaces/crearPruebas.js'
-
+        crearPruebas: './src/js/initInterfaces/crearPruebas.js',
+        asignarPruebas: './src/js/initInterfaces/asignarPruebas.js'
     },
     optimization: {},
     plugins: [
