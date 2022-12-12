@@ -2,7 +2,29 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require("copy-webpack-plugin");
 const path = require('path');
-const filesHTML = ['index.html','html/interfazDios.html','html/interfazHumano.html','html/landing.html','html/ok.html']
+
+const filesHTML = [
+    {
+        filename: 'index.html',
+        chunks: ['index']
+    }, 
+    {   
+        filename: './html/interfazHumano.html',
+        chunks: ['interfazHumano']
+    },
+    {   
+        filename: './html/interfazDios.html',
+        chunks: ['interfazDios']
+    },
+    {
+        filename: './html/crearPruebas.html',
+        chunks: ['crearPruebas']
+    },
+    {
+        filename: './html/asignarPruebas.html',
+        chunks: ['asignarPruebas']
+    }
+]
 
 module.exports = {
     mode: 'development',
@@ -49,6 +71,14 @@ module.exports = {
                 loader: 'file-loader'
             }
         ]
+    },
+
+    entry: {
+        index: './src/index.js',
+        interfazHumano: './src/js/initInterfaces/interfazHumano.js',
+        interfazDios: './src/js/initInterfaces/interfazDios.js',
+        crearPruebas: './src/js/initInterfaces/crearPruebas.js',
+        asignarPruebas: './src/js/initInterfaces/asignarPruebas.js'
     },
     optimization: {},
     plugins: [

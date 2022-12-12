@@ -11,4 +11,7 @@ class Prueba extends Model
 
     protected $table = 'pruebas';
 
+    function humanos() {
+        return $this->belongsToMany(Humano::class, 'humano_prueba', 'idPrueba', 'idHumano');
+    }
 }

@@ -29,4 +29,8 @@ class Humano extends Model
         return $this->belongsTo('App\Models\User');
     }
 
+    function pruebas() {
+        return $this->belongsToMany(Prueba::class, 'humano_prueba', 'idHumano', 'idPrueba');
+    }
+
 }

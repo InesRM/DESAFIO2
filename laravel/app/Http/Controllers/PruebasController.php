@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Humano;
 use App\Models\Prueba;
 use App\Models\PruebaEleccion;
 use App\Models\PruebaOraculo;
@@ -68,6 +69,7 @@ class PruebasController extends Controller {
         return response()->json(['cod' => $resp], 200);
     }
 
+
     public function insertPruebaEleccion(Request $request) {
         $datos = $request->all();
         $resp = 0;
@@ -94,17 +96,66 @@ class PruebasController extends Controller {
 
     // GET PRUEBAS
 
-    public function getPruebas(Request $request) {
+    public function getPruebas() { // CAMBIAR A QUERY BUILDER
         $pruebas['eleccion'] = DB::select('SELECT pruebas.id, pruebas.destino, pruebas.titulo, pruebas_oraculo.pregunta,
             respuestaCorrecta, respuestaIncorrecta, atributo FROM pruebas JOIN pruebas_oraculo on pruebas.id = pruebas_oraculo.id
-            JOIN pruebas_eleccion on pruebas_oraculo.id = pruebas_eleccion.id')[0];
+            JOIN pruebas_eleccion on pruebas_oraculo.id = pruebas_eleccion.id');
+
 
         // faltan pruebas de valoración y de resp libre
 
         $pruebas['puntuales'] = DB::select('SELECT pruebas.id, pruebas.destino, pruebas.titulo, descripcion,
-            porcentaje, atributo FROM pruebas JOIN pruebas_puntuales on pruebas.id = pruebas_puntuales.id')[0];
+            porcentaje, atributo FROM pruebas JOIN pruebas_puntuales on pruebas.id = pruebas_puntuales.id');
 
         return response()->json($pruebas, 200);
     }
 
+    public function getHumanosAsig(Request $request) {
+        return response()->json(
+            DB::select('SELECT idHumano, idPrueba FROM humano_prueba JOIN humanos on
+            humano_prueba.idHumano = humanos.id_humano WHERE humanos.idDios = ? ORDER BY idPrueba', [$request->id]), 200);
+    }
+
+    public function asignarPrueba(Request $request) {
+        try {
+            DB::table('humano_prueba')->insert(
+                ['idHumano' => $request->idHumano, 'idPrueba' => $request->idPrueba]
+            );
+
+            $resp = response()->json(['mensaje' => 'prueba asignada con éxito'], 201);
+        }
+        catch (\Exception $e) {
+            $resp = response()->json(['mensaje' => 'ha ocurrido un error'], 204);
+        }
+
+        return $resp;
+    }
+
+    // private function getPruebasHumano($id) { // para listar pruebas de los humanos
+    //     $humanoPruebas = Humano::find($id)->pruebas;
+
+
+    //     $query['eleccion'] = 'SELECT pruebas.id, pruebas.destino, pruebas.titulo, pruebas_oraculo.pregunta,
+    //     respuestaCorrecta, respuestaIncorrecta, atributo FROM pruebas JOIN pruebas_oraculo on pruebas.id = pruebas_oraculo.id
+    //     JOIN pruebas_eleccion on pruebas_oraculo.id = pruebas_eleccion.id';
+
+    //     $query['puntuales'] = 'SELECT pruebas.id, pruebas.destino, pruebas.titulo, descripcion,
+    //         porcentaje, atributo FROM pruebas JOIN pruebas_puntuales on pruebas.id = pruebas_puntuales.id ';
+
+
+
+    //     foreach ($humanoPruebas as $prueba) {
+    //         switch ($prueba->tipo) {
+    //             case 'puntual':
+    //                 $query['puntuales'] += $prueba->
+    //                 break;
+
+    //             default:
+    //                 # code...
+    //                 break;
+    //         }
+    //     }
+    // }
 }
+
+

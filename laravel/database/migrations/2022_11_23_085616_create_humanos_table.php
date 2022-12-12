@@ -20,8 +20,14 @@ return new class extends Migration
             $table->unsignedBigInteger('id_humano')->primary()->references('id')->on('users')->delete('cascade');
             // $table->string ('name');
             $table->integer('destino')->nullable();
+
             $table->string('dios-protector')->nullable();
             $table->string('cielo-infierno')->nullable();
+
+            $table->string('idDios')->nullable();
+            $table->string('cieloInfierno')->nullable();
+            // $table->foreign('id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+
             $table->timestamps();
         });
     }
