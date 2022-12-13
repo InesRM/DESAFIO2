@@ -43,22 +43,17 @@ export const updateCaracteristicas = async(caracteristicas) => { // EN CUARENTEN
     return await resp.json(); 
 }
 
-export const updateCaracteristicas2 = async() => { // EN CUARENTENA
-    const options = {
-        method: 'PUT',
-        body: '{"sabiduria":5,"nobleza":5,"virtud":1,"maldad":4,"audacia":1}'
-      };
+// export const updateCaracteristicas2 = async() => { // EN CUARENTENA
+//     const options = {
+//         method: 'PUT',
+//         body: '{"sabiduria":5,"nobleza":5,"virtud":1,"maldad":4,"audacia":1}'
+//       };
       
-      fetch('http://127.0.0.1:8000/api/cosa/updatecaracteristicas/1', options)
-        .then(response => response.json())
-        .then(response => console.log(response))
-        .catch(err => console.error(err));
-}
-
-
-
-
-
+//       fetch('http://127.0.0.1:8000/api/cosa/updatecaracteristicas/1', options)
+//         .then(response => response.json())
+//         .then(response => console.log(response))
+//         .catch(err => console.error(err));
+// }
 
 export const insertPreguntaEleccion = async(datos) => {
 
@@ -116,7 +111,7 @@ export const fetchAsigPruebas = async() =>  { // CAMBIAR NOMBRE
         const resp = await fetch(urlPruebas + '/gethumanosasig/1'); // + el dios
         if(!resp.ok) throw ('No se pudo realizar la petición');
         const humanosAsig = await resp.json();
-        console.warn(humanosAsig);
+        // console.warn(humanosAsig);
 
         return humanosAsig;
     }
