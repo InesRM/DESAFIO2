@@ -1,3 +1,6 @@
+import '../../styles.scss';
+import * as bootstrap from 'bootstrap';
+
 const {rellenarContPruebas, rellenarContHumanos, pintarAsignarPruebas} = require("../asignarPruebas/asignarPruebasComponentes");
 const {fetchPruebas, fetchHumanos, fetchAsigPruebas, asignarPruebas} = require("../http/httpProvider");
 const {guardarHumanosLs} = require("../localStorage/localStorage");
@@ -5,9 +8,7 @@ const {guardarHumanosLs} = require("../localStorage/localStorage");
 
 const resolverEnOrden = async() => {
     const humanos = await fetchHumanos();
-    console.warn(humanos);
     const pruebas = await fetchPruebas();
-    console.warn(pruebas);
     const humanosPruebas = await fetchAsigPruebas();
 
     rellenarContHumanos(humanos);
@@ -15,8 +16,7 @@ const resolverEnOrden = async() => {
     pintarAsignarPruebas(humanosPruebas, humanos);
 }
 
-resolverEnOrden();
-
-// fetchHumanos().then(rellenarContHumanos);
-// fetchPruebas().then(rellenarContPruebas);
-// fetchAsigPruebas().then(pintarAsignarPruebas);
+resolverEnOrden().then(data => {
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+});

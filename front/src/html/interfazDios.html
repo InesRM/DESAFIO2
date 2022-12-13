@@ -11,63 +11,125 @@
         rel="stylesheet"> -->
   </head>
 
-  <body>
-    <div class="container">
-      <div class="card mb-3 destinoCard">
-        <div
-          class="card-header bg-primary text-white d-flex justify-content-center"
-        >
-          <h5>Destino</h5>
-        </div>
-        <div class="card-body h3">
-          <span class="d-flex justify-content-center" id="contDestino"></span>
-        </div>
-      </div>
+  <body class="overflow-hidden">
 
+    <nav class="py-3 bg-light border-bottom">
+      <a href="../html/interfazDios.html" class="nav-link link-dark ps-2 active " aria-current="page">
+        <img src="../assets/icons/column.png" class="position-relative mb-3 icono">
+      </a>
+      <div class="container d-flex flex-wrap">
+        <ul class="nav me-auto">
+          <li class="nav-item"><a href="#" class="nav-link link-dark px-2 active" aria-current="page">Inicio</a></li>
+          <li class="nav-item"><a href="#" class="nav-link link-dark px-2">FAQs</a></li>
+          <li class="nav-item"><a href="#" class="nav-link link-dark px-2">About</a></li>
+        </ul>
+        <ul class="nav">
+          <li class="nav-item"><a href="../index.html" class="nav-link link-dark px-2">Login & registro</a></li>
+        </ul>
+      </div>
+    </nav>
+    <header class="py-3 border-bottom">
+      <div class="container d-flex flex-wrap justify-content-center">
+          <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+          <span class="fs-4">Sistema Olympus</span>
+      </div>
+    </header>
+  
+    <div class="max-width">
       <div class="row">
-        <table class="table tablaCaracteristicas" id="tablaCaracteristicas">
-          <thead>
-            <tr>
-              <th scope="col" class="text-center">Atributo</th>
-              <th scope="col" class="text-center">Nivel</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-
-      <!--MODAL CAMBIAR CARACTERÏSTICAS-->
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#modalCaracteristicas"
-      >
-        Launch demo modal
-      </button>
-
-      <div
-        class="modal fade"
-        id="modalCaracteristicas"
-        tabindex="-1"
-        aria-labelledby="tituloModalCaracteristicas"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="tituloModalCaracteristicas"></h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"  
-              ></button>
-            </div>
-            <div class="modal-body"></div>
+        <div class="col-3">
+          <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark start-0 vh-100">
+            <ul class="nav nav-pills flex-column mb-auto">
+              <li class="nav-item">
+                <a href="./asignarPruebas.html" class="nav-link text-white" aria-current="page">
+                  <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"/></svg>
+                  Zona de pruebas
+                </a>
+              </li>
+              <li>
+                <a href="./crearPruebas.html" class="nav-link text-white active">
+                  <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
+                  Crear pruebas
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link text-white">
+                  <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+                  Crear humanos
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
+  
+  
+        <div class="col-9">
+
+          <div class="container">
+            <div class="row">
+              <div class="col-2">
+                <div class="card mb-3 destinoCard w-75">
+                  <div
+                    class="card-header bg-primary text-white d-flex justify-content-center"
+                  >
+                    <h5>Destino</h5>
+                  </div>
+                  <div class="card-body h3">
+                    <span class="d-flex justify-content-center" id="contDestino"></span>
+                  </div>
+                </div>
+              </div>
+      
+              <div class="col-7"></div>
+      
+              <div class="col-3">
+                  <table class="table tablaCaracteristicas" id="tablaCaracteristicas">
+                    <thead>
+                      <tr>
+                        <th scope="col" class="text-center">Atributo</th>
+                        <th scope="col" class="text-center">Nivel</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                  <button
+                    type="button"
+                    class="btn btn-primary my-2 float-end me-4"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modalCaracteristicas"
+                  >
+                    Cambiar características
+                  </button>
+              </div>
+            </div>
+      
+            <div
+              class="modal fade"
+              id="modalCaracteristicas"
+              tabindex="-1"
+              aria-labelledby="tituloModalCaracteristicas"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="tituloModalCaracteristicas"></h5>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"  
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            
+        </div>
       </div>
-    </div>
+
   </body>
 </html>
