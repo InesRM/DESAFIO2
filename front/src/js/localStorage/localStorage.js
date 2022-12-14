@@ -1,12 +1,12 @@
 
-export const cargarHumanosLs = () => {
-    const humanos = (localStorage.getItem('humano')) 
-        ? JSON.parse(localStorage.getItem('humano'))
+export const cargarUserLs = () => {
+    const user = (localStorage.getItem('user')) 
+        ? JSON.parse(localStorage.getItem('user'))
         : [];
 
-        return humanos;
+        return user;
 }
 
-export const guardarHumanosLs = (humanos) => {
-    localStorage.setItem('humanos', JSON.stringify(humanos));
+export const guardarUserLs = (user) => {
+    localStorage.setItem('user', JSON.stringify(user));
 }

@@ -1,6 +1,9 @@
+import {cargarUserLs} from "../localStorage/localStorage";
+
 const urlInfo = 'http://127.0.0.1:8000/api/cosa';
 const urlPruebas = 'http://127.0.0.1:8000/api/pruebas';
 
+const user = cargarUserLs();
 
 export const fetchDestino = async() => {
     try {
@@ -21,7 +24,7 @@ export const fetchDestino = async() => {
 
 export const fetchCaracteristicas = async() => {
     try {
-        const resp = await fetch(urlInfo + '/getcaracteristicas/1'); // + el user
+        const resp = await fetch(urlInfo + '/getcaracteristicas/' + user.id); // + el user
         if(!resp.ok) throw ('No se pudo realizar la petición');
         const caracteristicas = await resp.json();
 
