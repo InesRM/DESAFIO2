@@ -78,6 +78,28 @@ export const insertPruebaPuntual = async(datos) => {
     return await resp.json();
 }
 
+export const insertPruebaRespLibre = async(datos) => {
+    const resp = await fetch(urlPruebas
+        + '/insertpruebaresplibre', {
+    method: 'POST',
+    body: JSON.stringify(datos),
+    headers: {'Content-Type': 'application/json'}
+    });
+
+    return await resp.json();
+}
+
+export const insertPruebaValoracion = async(datos) => {
+    const resp = await fetch(urlPruebas
+            + '/insertpruebapuntual', {
+        method: 'POST',
+        body: JSON.stringify(datos),
+        headers: {'Content-Type': 'application/json'}
+        });
+
+    return await resp.json();
+}
+
 export const fetchPruebas = async() => {
     try {
         const resp = await fetch(urlPruebas + '/getpruebas');
