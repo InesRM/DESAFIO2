@@ -7,6 +7,8 @@ use App\Models\Prueba;
 use App\Models\PruebaEleccion;
 use App\Models\PruebaOraculo;
 use App\Models\PruebaPuntual;
+use App\Models\PruebaRespLibre;
+use App\Models\PruebaValoracion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -94,6 +96,52 @@ class PruebasController extends Controller {
         return response()->json(['cod' => $resp], 200);
     }
 
+
+    public function insertPruebaRespLibre(Request $request) {
+        $datos = $request->all();
+        $resp = 0;
+
+        $id = $this->insertPrueba($datos['destino'], $datos['titulo']);
+        $this->insertPruebaOraculo($id, $datos['pregunta']);
+
+        $p = new PruebaRespLibre;
+
+        $p->id = $id;
+        $p->palabras_clave = $datos['palabrasClave'];
+        $p->porcentaje = $datos['porcentaje'];
+
+        try {
+            $p->save();
+        }
+        catch (\Exception $e) {
+            $resp = -1;
+        }
+
+        return response()->json(['cod' => $resp], 200);
+    }
+
+    public function insertPruebaValoracion(Request $request) {
+        $datos = $request->all();
+        $resp = 0;
+
+        $id = $this->insertPrueba($datos['destino'], $datos['titulo']);
+        $this->insertPruebaOraculo($id, $datos['pregunta']);
+
+        $p = new PruebaValoracion;
+
+        $p->id = $id;
+        $p->respuesta = $datos['valoracionCorrecta'];
+        $p->atributo = $datos['atributo'];
+        try {
+            $p->save();
+        }
+        catch (\Exception $e) {
+            $resp = -1;
+        }
+
+        return response()->json(['cod' => $resp], 200);
+    }
+
     // GET PRUEBAS
 
     public function getPruebas() { // CAMBIAR A QUERY BUILDER
@@ -101,11 +149,21 @@ class PruebasController extends Controller {
             respuestaCorrecta, respuestaIncorrecta, atributo FROM pruebas JOIN pruebas_oraculo on pruebas.id = pruebas_oraculo.id
             JOIN pruebas_eleccion on pruebas_oraculo.id = pruebas_eleccion.id');
 
+        $pruebas['respLibre'] = DB::select('SELECT pruebas.id, pruebas.destino, pruebas.titulo, pruebas_oraculo.pregunta,
+            palabrasClave, porcentaje, atributo FROM pruebas JOIN pruebas_oraculo on pruebas.id = pruebas_oraculo.id
+            JOIN pruebas_resp_libre on pruebas_oraculo.id = pruebas_resp_libre.id');
 
-        // faltan pruebas de valoración y de resp libre
+        foreach ($pruebas['respLibre'] as $prueba) {
+            $prueba->palabra_clave = explode(' ', $prueba->palabra_clave);
+        }
+
+        $pruebas['valoracion'] = DB::select('SELECT pruebas.id, pruebas.destino, pruebas.titulo, pruebas_oraculo.pregunta,
+            respuesta, atributo FROM pruebas JOIN pruebas_oraculo on pruebas.id = pruebas_oraculo.id
+            JOIN pruebas_resp_libre on pruebas_oraculo.id = pruebas_valoracion.id');
 
         $pruebas['puntuales'] = DB::select('SELECT pruebas.id, pruebas.destino, pruebas.titulo, descripcion,
             porcentaje, atributo FROM pruebas JOIN pruebas_puntuales on pruebas.id = pruebas_puntuales.id');
+
 
         return response()->json($pruebas, 200);
     }

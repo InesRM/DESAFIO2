@@ -32,17 +32,6 @@ Route::post('/users/register', [AuthController::class, 'register']);
 Route::post('enviarCorreo', [EnviarCorreo::class, 'enviarCorreo']);
 Route::get('/users/activarHumano/{id}',[UserController::class, 'activarHumano']);
 
-
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/users', [userController::class, 'index']);
-    Route::put('/humanos/AsignarDios/{id}', [HumanoController::class, 'AsignarDios']);
-    Route::get('/users/mostrarVidaPorNombre/{nombre}', [userController::class, 'mostrarVidaPorNombre'])->middleware(['midHumanos']);
-    // Route::get('/users/mostrarVidaPorId/{id}', [userController::class, 'mostrarVidaPorId'])->middleware('midHumanos');
-    Route::post('/users/crearHumanos', [userController::class, 'crearHumanos'])->middleware(['midDios', 'midHades']);
-    Route::delete('/users/matar/{id}', [userController::class, 'matar'])->middleware(['midHades']);
-});
-
-
 Route::controller(InfoController::class)->prefix('cosa')->group(function() {
 
     Route::get('getdestino/{id}', 'getDestino');
@@ -57,6 +46,8 @@ Route::controller(InfoController::class)->prefix('cosa')->group(function() {
 Route::controller(PruebasController::class)->prefix('pruebas')->group(function() {
     Route::post('insertpruebaeleccion', 'insertPruebaEleccion');
     Route::post('insertpruebapuntual', 'insertPruebaPuntual');
+    Route::post('insertpruebaresplibre', 'insertPruebaRespLibre');
+    Route::post('insertpruebavaloracion', 'insertPruebaValoracion');
     Route::get('getpruebas', 'getPruebas');
     Route::get('gethumanosasig/{id}', 'getHumanosAsig');
     Route::post('asignarprueba', 'asignarPrueba');
