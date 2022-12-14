@@ -30,6 +30,39 @@ class UserController extends Controller // Ines*************************
         return response()->json($Users, 200);
     }
 
+
+
+
+    public function getDiosProtector(Request $request, $id)
+    {
+        try {
+            $user = Humano::find($request->id);
+            $humano = DB::table('humanos')->where('id', $id)->get();
+
+
+            $dios_protector = [
+                // 'id' => $humano->id,
+                'dios_protector' => $humano->dios_protector
+            ];
+
+            $resp = response()->json($dios_protector, 200);
+        } catch (\Exception $e) {
+            $resp = response()->json(['error' => 'ha ocurrido un error'], 204);
+        }
+        return $resp;
+    }
+    public function mostrarHumano(Request $request, $id)
+    {
+        $user = User::find($id);
+        $humano = DB::table('humanos')->where('id_humano', $id)->get();
+        if ($user == null) {
+            return response()->json("No existe el humano", 200);
+        } else {
+            return response()->json($humano, 200);
+        }
+    }
+
+
     public function mostrarVidaPorId($id)
     {
         $User_vida = User::find($id);
@@ -90,12 +123,11 @@ class UserController extends Controller // Ines*************************
         }
     }
 
-    private function asignarDioses($humano) {
-        $dioses = DB::select('SELECT id FROM users WHERE rol LIKE "dios"'); // ids de los dioses (falta el where)
-        $atribDioses = DB::select('SELECT sabiduria, nobleza, virtud, maldad, audacia FROM users WHERE rol LIKE "dios"'); // atributos de los dioses (falta el where)
-
-
-
+    private function asignarDioses($humano)
+    {
+        $dioses = DB::select('SELECT id FROM users WHERE rol LIKE "dios"');
+        $atribDioses = DB::select('SELECT sabiduria, nobleza, virtud, maldad, audacia FROM users WHERE rol LIKE "dios" OR "hades"'); // atributos de los dioses (falta el where)
+        //AQUÍ FALTA EL HADES....NO APARECE ASIGNADO NUNCA................................................................
 
 
         $maxDiff = 0;
@@ -106,42 +138,68 @@ class UserController extends Controller // Ines*************************
             }
 
             if ($diff > $maxDiff) $keyDios = $key;  // si la diferencia que tiene el humano con este dios es mayor que la máxima diferencia
-                                                    // que había con cualquier otro dios, guardo la clave de este dios para asignarlo como su
-                                                    // protector
+            // que había con cualquier otro dios, guardo la clave de este dios para asignarlo como su
+            // protector
         }
 
-        return $dioses[$keyDios]->id;
+        return $dioses[$keyDios]->name;
     }
 
-    public function activarHumano($id) {
-        $user = User::find($id);
+    // public function activarHumano($id) {
+    //     $user = User::find($id);
 
-        $user->sabiduria = random_int(1, 5);
-        $user->nobleza = random_int(1, 5);
-        $user->virtud = random_int(1, 5);
-        $user->maldad = random_int(1, 5);
-        $user->audacia = random_int(1, 5);
+    //     $user->sabiduria = random_int(1, 5);
+    //     $user->nobleza = random_int(1, 5);
+    //     $user->virtud = random_int(1, 5);
+    //     $user->maldad = random_int(1, 5);
+    //     $user->audacia = random_int(1, 5);
 
-        $h = Humano::find($id);
-
-        echo 'antes';
-        $h->idDios = $this->asignarDioses($user);
+    //     $h = Humano::find($id);
 
 
-        $user->activo = 1;
+    //     $h->idDios = $this->asignarDioses($user);
 
 
-        try {
-            $user->save();
-            $h->save();
+    //     $user->activo = 1;
 
-            echo 'llega';
-            $resp = ['mensaje' => 'Humano activado'];
+
+    //     try {
+    //         $user->save();
+    //         $h->save();
+
+
+    //         $resp = ['mensaje' => 'Humano activado'];
+    //     }
+    //     catch (\Exception $e) {
+    //         $resp = ['mensaje' => 'ha ocurrido un error'];
+    //     }
+
+    //     return response()->json($resp, 200);
+    // }
+    public static function activarHumano($email)
+    {
+        $user = DB::table('users')->where('email', $email)->get();
+        if ($email != null) {
+            DB::table('users')->where('email', $email)->update([
+                'activo' => true,
+                'sabiduria' => random_int(1, 5),
+                'nobleza' => random_int(1, 5),
+                'virtud' => random_int(1, 5),
+                'maldad' => random_int(1, 5),
+                'audacia' => random_int(1, 5),
+            ]);
+
+            $humano = DB::table('humanos')->where('id_humano', $user[0]->id)->get('id_humano');
+            HumanoController::AsignarDios($humano[0]->id_humano);
+
+            response()->json("El humano ha sido activado", 200);
+            return redirect('http://localhost:8080/index.html')->with('status', 'El humano ha sido activado');
+        } else {
+            // return response()->json("El humano ya estaba activo", 200);
+
+            response()->json("El humano ya estaba activo", 200);
+
+            return redirect('http://localhost:8080/index.html')->with ('status', 'El humano ya estaba activado');
         }
-        catch (\Exception $e) {
-            $resp = ['mensaje' => 'ha ocurrido un error'];
-        }
-
-        return response()->json($resp, 200);
     }
 }

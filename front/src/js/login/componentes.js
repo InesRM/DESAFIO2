@@ -1,5 +1,6 @@
 
 import "../../styles.scss";
+
 // import * as webpacklogo from "../assets/img/webpack-logo.png";
 
 //FUNCIONES
@@ -73,6 +74,8 @@ const register = () => {
     caja_trasera_login.style.opacity = "1";
   }
 };
+  
+
 
 export const ancho = () => {
   anchoPage();
@@ -86,3 +89,5 @@ export const registrarse = () => {
 // export const img = () => {
 //   document.getElementById("body").style.backgroundImage = "url(" + webpacklogo + ")";
 // }
+
+

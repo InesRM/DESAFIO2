@@ -1,8 +1,4 @@
-@use "sass:map";
 @import "~bootstrap/scss/bootstrap";
-
-@import './css/crearPruebas', './css/asignarPruebas';
-
 *{
     margin: 0;
     padding: 0;
@@ -234,21 +230,23 @@ h1{
     .contenedor__login-register form{
         position: relative;
     }
+    .container-fluid{
+        background-color: rgb(243, 227, 214);
+        color:black;
+        font-size: 20px;
+        font-style: bold;
+
+        .nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+            background-color: rgb(136, 119, 150);
+            color:black;
+            font-size: 20px;
+            font-style: bold;
+        }
+
+
+    }
     
 }
 
-$tema :(
-    "tamLetra": 15pt
-);
 
-img.icono {
-    width: 3.5rem;
-    float: left;
-}
 
-div.tooltipPrueba {
-    width: 200px;
-}
-
-@include crearPruebas($tema);
-@include asignarPruebas($tema);

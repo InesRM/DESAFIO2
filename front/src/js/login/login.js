@@ -1,4 +1,4 @@
-const url= 'http://localhost:8000/users/login';
+const url= 'http://localhost:8000/api/users/login';
 
 const login = () => {
     const email = document.getElementById('email').value;

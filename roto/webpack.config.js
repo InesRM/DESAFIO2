@@ -1,8 +1,8 @@
-
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require("copy-webpack-plugin");
 const path = require('path');
+
 const filesHTML = [
     {
         filename: 'index.html',
@@ -21,16 +21,8 @@ const filesHTML = [
         chunks: ['crearPruebas']
     },
     {
-        filename: './html/landing.html',
-        chunks: ['landing']
-    },
-    {
-        filename: './html/ok.html',
-        chunks: ['ok']
-    },
-    {
-        filename: './html/humano.html',
-        chunks: ['ok']
+        filename: './html/asignarPruebas.html',
+        chunks: ['asignarPruebas']
     }
 ]
 
@@ -80,15 +72,13 @@ module.exports = {
             }
         ]
     },
+
     entry: {
-        index: ['./src/index.js',
-                './src/js/login/login.js',],
+        index: './src/index.js',
         interfazHumano: './src/js/initInterfaces/interfazHumano.js',
         interfazDios: './src/js/initInterfaces/interfazDios.js',
         crearPruebas: './src/js/initInterfaces/crearPruebas.js',
-        landing: './src/index.js',
-        ok: './src/index.js',
-        humano: './src/index.js',
+        asignarPruebas: './src/js/initInterfaces/asignarPruebas.js'
     },
     optimization: {},
     plugins: [
@@ -102,10 +92,8 @@ module.exports = {
                 {from: 'src/html/*', to: 'html/[name].[ext]'}
             ]
         })
-    ].concat(filesHTML.map((templateFile) => new HtmlWebPackPlugin({
-        filename: templateFile.filename,
-        template: './src/'+templateFile.filename,
-        chunks: templateFile.chunks,
-        inject: (templateFile.chunks.length==0) ? false: true
+    ].concat(filesHTML.map((templateFileName) => new HtmlWebPackPlugin({
+        filename: templateFileName,
+        template: './src/'+templateFileName
     })))
 };

@@ -53,7 +53,7 @@ class HumanoController extends Controller
 
 
         // Aquí haremos la redirección correspondiente en el dashboard del humano
-        return response()->json("El dios protector es: ".$dios_protector, 200);
+        return response()->json($dios_protector, 200);
 
 
 

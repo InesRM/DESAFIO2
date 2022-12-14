@@ -53,9 +53,12 @@ class AuthController extends Controller
             $success['token'] =  $auth->createToken($token['nombre'], $token['hab'])->plainTextToken;
             $success['name'] =  $auth->name;
 
-            return redirect('http://localhost:8080/html/interfazHumano.html');
+            response()->json(['success' =>true, $success], 200);
+
+            return redirect('http://localhost:8080/html/interfazHumano.html')->with('success', 'Usuario logueado correctamente');
         } else {
-            return response()->json(["success" => false, "message" => "Unauthorised"], 202);
+            response()->json(["success" => false, "message" => "Unauthorised"], 202);
+            return redirect('http://localhost:8080')->with('error', 'Usuario o contraseña incorrectos');;
         }
     }
 
@@ -87,7 +90,8 @@ class AuthController extends Controller
         $success['token']  = $user->createToken('nuevo', ["User"])->plainTextToken;
         $success['name'] =  $user->name;
 
-        return redirect('http://localhost:8080/html/ok.html');
+        response()->json(['success' => true, $success], 200);
+        return redirect('http://localhost:8080/html/ok.html')->with('success', 'Usuario creado correctamente');
     }
 
 
@@ -96,7 +100,8 @@ class AuthController extends Controller
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $cantidad = Auth::user()->tokens()->delete();
             // return response()->json(["success" => $cantidad, "message" => "Tokens Revoked"], 200);
-            return redirect('http://localhost:8080/index.html');
+           response ()->json (["success" => $cantidad, "message" => "Tokens Revoked"], 200);
+            return redirect('http://localhost:8080/index.html')->with('success', 'Usuario deslogueado correctamente');
         } else {
             return response()->json(["success" => false, "message" => "Unauthorised"], 202);
         }
