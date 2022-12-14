@@ -83,8 +83,6 @@ class UserController extends Controller // Ines*************************
     private function asignarDioses($humano) {
         $dioses = DB::select('SELECT id FROM users WHERE rol LIKE "dios"'); // ids de los dioses (falta el where)
         $atribDioses = DB::select('SELECT sabiduria, nobleza, virtud, maldad, audacia FROM users WHERE rol LIKE "dios"'); // atributos de los dioses (falta el where)
-        echo 'aaaaaaaaaaaaa      ';
-
 
 
 
@@ -103,8 +101,8 @@ class UserController extends Controller // Ines*************************
         return $dioses[$keyDios]->id;
     }
 
-    public function activarHumano($id) {
-        $user = User::find($id);
+    public function activarHumano($email) {
+        $user = User::where('email', $email)->get()[0];
 
         $user->sabiduria = random_int(1, 5);
         $user->nobleza = random_int(1, 5);
@@ -112,20 +110,16 @@ class UserController extends Controller // Ines*************************
         $user->maldad = random_int(1, 5);
         $user->audacia = random_int(1, 5);
 
-        $h = Humano::find($id);
+        $h = Humano::find($user->id);
 
-        echo 'antes';
         $h->idDios = $this->asignarDioses($user);
 
-
         $user->activo = 1;
-
 
         try {
             $user->save();
             $h->save();
 
-            echo 'llega';
             $resp = ['mensaje' => 'Humano activado'];
         }
         catch (\Exception $e) {
