@@ -9,7 +9,5 @@ form.addEventListener('submit', async(e) => {
     const datosPrueba = Object.fromEntries(data.entries());
     e.preventDefault();
 
-    datosPrueba.palabrasClave = datosPrueba.palabrasClave.trim().split();
-
     insertPruebaRespLibre(datosPrueba).then(limpiarForm(form.id));
 });
