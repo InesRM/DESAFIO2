@@ -80,24 +80,58 @@ class UserController extends Controller // Ines*************************
         }
     }
 
-    public static function activarHumano($id)
-    {
-        $user = User::find($id);
-        $User_activo = DB::table('users')->where('id', $id)->get();
+    private function asignarDioses($humano) {
+        $dioses = DB::select('SELECT id FROM users WHERE rol LIKE "dios"'); // ids de los dioses (falta el where)
+        $atribDioses = DB::select('SELECT sabiduria, nobleza, virtud, maldad, audacia FROM users WHERE rol LIKE "dios"'); // atributos de los dioses (falta el where)
+        echo 'aaaaaaaaaaaaa      ';
 
-        if ($User_activo != null) {
-            DB::table('users')->where('id', $id)->update([
-                'activo' => true,
-                'sabiduria' => random_int(1, 5),
-                'nobleza' => random_int(1, 5),
-                'virtud' => random_int(1, 5),
-                'maldad' => random_int(1, 5),
-                'audacia' => random_int(1, 5),
-            ]);
-            return response()->json("Humano activado", 200);
 
-        } else {
-            return response()->json("El humano ya estaba activo", 200);
+
+
+        $maxDiff = 0;
+        foreach ($atribDioses as $key => $atribDios) { // recorro el array con las características de cada dios
+            $diff = 0;
+            foreach ($atribDios as $atributo => $valor) { // recorro las características de cada dios
+                $diff += abs($valor - $humano[$atributo]); // voy sumando la diferencia para obtener la total
+            }
+
+            if ($diff > $maxDiff) $keyDios = $key;  // si la diferencia que tiene el humano con este dios es mayor que la máxima diferencia
+                                                    // que había con cualquier otro dios, guardo la clave de este dios para asignarlo como su
+                                                    // protector
         }
+
+        return $dioses[$keyDios]->id;
+    }
+
+    public function activarHumano($id) {
+        $user = User::find($id);
+
+        $user->sabiduria = random_int(1, 5);
+        $user->nobleza = random_int(1, 5);
+        $user->virtud = random_int(1, 5);
+        $user->maldad = random_int(1, 5);
+        $user->audacia = random_int(1, 5);
+
+        $h = Humano::find($id);
+
+        echo 'antes';
+        $h->idDios = $this->asignarDioses($user);
+
+
+        $user->activo = 1;
+
+
+        try {
+            $user->save();
+            $h->save();
+
+            echo 'llega';
+            $resp = ['mensaje' => 'Humano activado'];
+        }
+        catch (\Exception $e) {
+            $resp = ['mensaje' => 'ha ocurrido un error'];
+        }
+
+        return response()->json($resp, 200);
     }
 }
