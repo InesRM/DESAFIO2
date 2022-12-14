@@ -1,3 +1,4 @@
+import { guardarUserLs } from "../localStorage/localStorage";
 import { crearUsuario } from "./crud-provider";
 
 const form = document.getElementById('loginForm');
@@ -20,33 +21,21 @@ const validation = () => {
         }
     });
 
-    form.addEventListener('login', (event) => {
+    form.addEventListener('submit', (event) => {
         if(!email.validity.valid) {
             showError();
             event.preventDefault(); //Evitamos que se envíe el formulario
         } else {
-            const data = new FormData(document.getElementById('.formulario__login'));
+            console.warn(form);
+            const data = new FormData(form);
             const usuario = Object.fromEntries(data);
-            crearUsuario(usuario).then(console.log);
+            crearUsuario(usuario).then(data => {
+                guardarUserLs(data.data);
+            });
             event.preventDefault();
         }
         validation();
     });
-
-
-
-form.addEventListener('submit', (event) => {
-    if(!email.validity.valid) {
-        showError();
-        event.preventDefault(); //Evitamos que se envíe el formulario
-    } else {
-        const data = new FormData(document.getElementById('.formulario__register'));
-        const usuario = Object.fromEntries(data);
-        crearUsuario(usuario).then(console.log);
-        event.preventDefault();
-    }
-    validation();
-});
 }
 
 const showError = () => {
