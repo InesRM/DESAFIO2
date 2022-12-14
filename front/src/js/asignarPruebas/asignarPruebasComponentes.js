@@ -47,33 +47,89 @@ const crearTarjHumanoHtml = (humano) => {
     return tarjDiv;
 }
 
+const generarHtmlTooltip = (prueba, tipo) => {
+
+    let html = '';
+
+    switch (tipo) {
+        case 'puntuales':
+            html = `
+            <b>Descripción</b>
+            <p>
+                ${(prueba.descripcion)}
+            </p>
+            <p>
+                <b>Destino: </b> ${(prueba.destino)} 
+                <br>
+                <b>Porcentaje: </b> ${(prueba.porcentaje)}%
+                <br>
+                <b>Atributo: </b> ${(prueba.atributo)}
+                <br>
+            </p>
+            `;
+            break;
+        case 'eleccion' :
+            html = `
+            <b>Pregunta</b>
+            <p>
+                ${(prueba.pregunta)}
+            </p>
+            <p>
+                <b>Destino: </b> ${(prueba.destino)} 
+                <br>
+                <b>Respuesta correcta: </b> ${(prueba.respuestaCorrecta)} 
+                <br>
+                <b>Respuesta incorrecta: </b> ${(prueba.respuestaIncorrecta)} 
+                <br>
+                <b>Atributo: </b> ${(prueba.atributo)}
+                <br>
+            </p>
+            `;
+        default:
+            break;
+    }
+
+        return html;
+}
+
 const crearTarjPrueba = (prueba, tipo) => {
     let tarjDiv = document.createElement('div');
     tarjDiv.classList.add('accordion', 'mb-4', 'rounded-3', 'tarjPrueba');
     tarjDiv.id = 'p' + prueba.id;
     
+    const htmlToolip = generarHtmlTooltip(prueba, tipo);
+
     const html = `
         <div class="accordion-item ">
             <h2 class="accordion-header" id="headingOne">
                 <button
-                class="accordion-button "
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#desp${(tarjDiv.id)}"
-                aria-expanded="true"
-                aria-controls="collapseOne"
+                    class="accordion-button d-flex justify-content-between position-relative"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#desp${(tarjDiv.id)}"
                 >
-                ${(prueba.titulo)} | ${(tipo)}
+                    ${(prueba.titulo)} | ${(tipo)}
+    
+                    <span class="iconoInfo position-absolute"
+                        data-bs-toggle="tooltip" data-bs-placement="right" 
+                        data-bs-html="true" data-bs-title="${(htmlToolip)}"
+                    >?</span>
                 </button>
             </h2>
-            <ul
-                class="accordion-collapse collapse list-group contenedorTarjetasPrueba"
-                aria-labelledby="headingOne"
-                id="desp${(tarjDiv.id)}"
-            >
+                <ul
+                    class="accordion-collapse collapse list-group contenedorTarjetasPrueba"
+                    aria-labelledby="headingOne"
+                    id="desp${(tarjDiv.id)}"
+                >
             </ul>
         </div>
     `;
+
+    // <img src="../assets/icons/question.png" 
+    //                     class="rounded iconoInfo"
+    //                     data-bs-toggle="tooltip" data-bs-placement="right" 
+    //                     data-bs-html="true" data-bs-title="${(htmlToolip)}"
+    //                     ></img>
 
     tarjDiv.innerHTML = html;
     contTarjetasPrueba.append(tarjDiv);

@@ -1,0 +1,14 @@
+@mixin asignarPruebas($tema) {
+    body{
+
+        
+        div.contenedor {
+            height: 90%;
+
+            span.iconoInfo {
+                right: 3rem;
+                font-size: 16pt;
+            }
+        }
+    }
+}

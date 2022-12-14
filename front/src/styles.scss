@@ -1,4 +1,8 @@
+@use "sass:map";
 @import "~bootstrap/scss/bootstrap";
+
+@import './css/crearPruebas', './css/asignarPruebas';
+
 *{
     margin: 0;
     padding: 0;
@@ -233,5 +237,18 @@ h1{
     
 }
 
+$tema :(
+    "tamLetra": 15pt
+);
 
+img.icono {
+    width: 3.5rem;
+    float: left;
+}
 
+div.tooltipPrueba {
+    width: 200px;
+}
+
+@include crearPruebas($tema);
+@include asignarPruebas($tema);
