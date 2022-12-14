@@ -12,6 +12,7 @@ use App\Http\Controllers\EnviarCorreo;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\HumanoController\AsignarDios;
 
+
 /**
  * @group Humano
  * APIs para la gestión de humanos
@@ -89,28 +90,58 @@ class UserController extends Controller // Ines*************************
         }
     }
 
-    public static function activarHumano($email)
-    {
+    private function asignarDioses($humano) {
+        $dioses = DB::select('SELECT id FROM users WHERE rol LIKE "dios"'); // ids de los dioses (falta el where)
+        $atribDioses = DB::select('SELECT sabiduria, nobleza, virtud, maldad, audacia FROM users WHERE rol LIKE "dios"'); // atributos de los dioses (falta el where)
 
-        $user = DB::table('users')->where('email', $email)->get();
 
-        if ($email != null) {
-            DB::table('users')->where('email', $email)->update([
-                'activo' => true,
-                'sabiduria' => random_int(1, 5),
-                'nobleza' => random_int(1, 5),
-                'virtud' => random_int(1, 5),
-                'maldad' => random_int(1, 5),
-                'audacia' => random_int(1, 5),
-            ]);
 
-            $humano = DB::table('humanos')->where('id_humano', $user[0]->id)->get('id_humano');
-            HumanoController::AsignarDios($humano[0]->id_humano);
 
-            return redirect('http://localhost:8080/html/landing.html');
-        } else {
-            // return response()->json("El humano ya estaba activo", 200);
-            return redirect('http://localhost:8080/index.html');
+
+        $maxDiff = 0;
+        foreach ($atribDioses as $key => $atribDios) { // recorro el array con las características de cada dios
+            $diff = 0;
+            foreach ($atribDios as $atributo => $valor) { // recorro las características de cada dios
+                $diff += abs($valor - $humano[$atributo]); // voy sumando la diferencia para obtener la total
+            }
+
+            if ($diff > $maxDiff) $keyDios = $key;  // si la diferencia que tiene el humano con este dios es mayor que la máxima diferencia
+                                                    // que había con cualquier otro dios, guardo la clave de este dios para asignarlo como su
+                                                    // protector
         }
+
+        return $dioses[$keyDios]->id;
+    }
+
+    public function activarHumano($id) {
+        $user = User::find($id);
+
+        $user->sabiduria = random_int(1, 5);
+        $user->nobleza = random_int(1, 5);
+        $user->virtud = random_int(1, 5);
+        $user->maldad = random_int(1, 5);
+        $user->audacia = random_int(1, 5);
+
+        $h = Humano::find($id);
+
+        echo 'antes';
+        $h->idDios = $this->asignarDioses($user);
+
+
+        $user->activo = 1;
+
+
+        try {
+            $user->save();
+            $h->save();
+
+            echo 'llega';
+            $resp = ['mensaje' => 'Humano activado'];
+        }
+        catch (\Exception $e) {
+            $resp = ['mensaje' => 'ha ocurrido un error'];
+        }
+
+        return response()->json($resp, 200);
     }
 }
