@@ -50,6 +50,7 @@ const validation = () => {
   });
   /***********Register********/
   form2.addEventListener("submit", (event) => {
+    
     if (!email.validity.valid) {
       showError();
       event.preventDefault(); //Evitamos que se envíe el formulario
@@ -72,6 +73,7 @@ const validation = () => {
 };
 
 const showError = () => {
+
   if (email.validity.valueMissing) {
     emailError.textContent = "El campo no se ajusta a un correo estándar";
   } else if (email.validity.typeMismatch) {
