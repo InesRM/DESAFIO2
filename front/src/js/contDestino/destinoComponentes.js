@@ -1,6 +1,7 @@
 import {fetchDestino} from '../http/httpProvider';
 import {fetchDiosProtector} from '../http/httpProvider';
 
+
 export const pintarContDestino = async() => {
     let contDestino = document.getElementById('contDestino');
     

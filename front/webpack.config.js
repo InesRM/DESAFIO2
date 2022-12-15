@@ -91,7 +91,7 @@ module.exports = {
         interfazDios: './src/js/initInterfaces/interfazDios.js',
         crearPruebas: './src/js/initInterfaces/crearPruebas.js',
         landing: './src/js/login/landing.js',
-        ok: './src/index.js',
+        ok: './src/js/login/ok.js',
         humano: './src/index.js',
         asignarPruebas: './src/js/asignarPruebas/asignarPruebasComponentes.js'
     },

@@ -1,17 +1,21 @@
 const urlCosa = 'http://127.0.0.1:8000/api/cosa';
 const urlPruebas = 'http://127.0.0.1:8000/api/pruebas';
-const urlConsultas = 'http://127.0.0.1:8000/api/getDiosProtector/31';
-const urlLogin = 'http://localhost:8000/api/users/login';
+const urlConsultas = 'http://127.0.0.1:8000/api/getDiosProtector/33';
+// const urlLogin = 'http://localhost:8000/api/users/login';
 
-/**@author Ines */
+/**@author Ines 
+ * dios_protector
+*/
 
 
 export const fetchDiosProtector = async() => {
 
     try {
-        const id= await fetch(urlConsultas);
-        const resp = await fetch(urlConsultas);
+        const resp= await fetch(urlConsultas); // + el user
+
         const data = await resp.json();
+        JSON.stringify(data);
+        
         return data.dios_protector;
       
     }
