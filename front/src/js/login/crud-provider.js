@@ -2,7 +2,7 @@ const urlCRUD = 'http://localhost:8000/api/users';
 
 
 const crearUsuario = async(usuario) => {
-    const resp = await fetch(urlCRUD, {
+    const resp = await fetch(urlCRUD + '/login', {
         method: 'POST',
         body: JSON.stringify(usuario),
         headers: {

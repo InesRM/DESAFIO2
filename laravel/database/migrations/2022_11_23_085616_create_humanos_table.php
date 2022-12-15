@@ -24,7 +24,8 @@ return new class extends Migration
             $table->string('dios-protector')->nullable();
             $table->string('cielo-infierno')->nullable();
 
-            $table->string('idDios')->nullable();
+            $table->unsignedBigInteger('idDios')->nullable();
+
             $table->string('cieloInfierno')->nullable();
             // $table->foreign('id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 

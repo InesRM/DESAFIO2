@@ -21,12 +21,13 @@ class Humano extends Model
     [
     'id_humano',
     'destino',
-    'dios-protector',
-    'cielo-infierno'];
+    'idDios',
+    'cieloInfierno'
+    ];
 
-    function user()
+    function dios()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class, 'idDios', 'id');
     }
 
     function pruebas() {

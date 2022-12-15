@@ -1,3 +1,4 @@
+import { guardarUserLs } from "../localStorage/localStorage";
 import { crearUsuario } from "./crud-provider";
 // import { eliminarUsuario } from "./crud-provider";
 // import { editarUsuario } from "./crud-provider";
@@ -71,6 +72,34 @@ const validation = () => {
     }
   });
 };
+=======
+    email.addEventListener('input', (event) => {
+        if(email.validity.valid) {
+           
+            emailError.innerHTML=''; //Restablece el contenido del mensaje
+            emailError.className='error'; //Restablece el estado visual el mensaje
+        } else { //Si todavía hay error, muestra el error
+            showError();
+        }
+    });
+
+    form.addEventListener('submit', (event) => {
+        if(!email.validity.valid) {
+            showError();
+            event.preventDefault(); //Evitamos que se envíe el formulario
+        } else {
+            console.warn(form);
+            const data = new FormData(form);
+            const usuario = Object.fromEntries(data);
+            crearUsuario(usuario).then(data => {
+                guardarUserLs(data.data);
+            });
+            event.preventDefault();
+        }
+        validation();
+    });
+}
+
 
 const showError = () => {
 

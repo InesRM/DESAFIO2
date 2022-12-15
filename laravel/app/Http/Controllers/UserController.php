@@ -117,12 +117,11 @@ class UserController extends Controller
         }
     }
 
+
     public function AsignarDios($humano)
     {
         $dioses = DB::select('SELECT id FROM users WHERE rol LIKE "dios"');
-        $atribDioses = DB::select('SELECT sabiduria, nobleza, virtud, maldad, audacia FROM users WHERE rol LIKE "dios" OR "hades"'); // atributos de los dioses (falta el where)
-
-
+        $atribDioses = DB::select('SELECT sabiduria, nobleza, virtud, maldad, audacia FROM users WHERE rol LIKE "dios" OR "hades"'); 
 
         $maxDiff = 0;
         foreach ($atribDioses as $key => $atribDios) {
@@ -137,9 +136,8 @@ class UserController extends Controller
         return $dioses[$keyDios]->id;
     }
 
-
     public function activarHumano($email) {
-        $user = User::where('email', $email)->get()[0];
+       $user = User::where('email', $email)->get()[0];
 
         $user->sabiduria = random_int(1, 5);
         $user->nobleza = random_int(1, 5);
@@ -166,6 +164,7 @@ class UserController extends Controller
         response()->json($resp, 200);
         return redirect('http://localhost:8080/html/landing.html')->with('mensaje', 'Humano activado');
     }
+
 
 
     }

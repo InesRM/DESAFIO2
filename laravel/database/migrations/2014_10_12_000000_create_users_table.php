@@ -23,11 +23,11 @@ return new class extends Migration
             $table->string('password');
             $table->enum('rol',["dios","humano","hades"]);
             $table->boolean('activo');
-            $table->string('sabiduria')->nullable();
-            $table->string('nobleza')->nullable();
-            $table->string('virtud')->nullable();
-            $table->string('maldad')->nullable();
-            $table->string('audacia')->nullable();
+            $table->integer('sabiduria')->nullable();
+            $table->integer('nobleza')->nullable();
+            $table->integer('virtud')->nullable();
+            $table->integer('maldad')->nullable();
+            $table->integer('audacia')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
