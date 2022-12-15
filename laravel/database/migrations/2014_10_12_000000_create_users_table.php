@@ -22,7 +22,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('rol',["dios","humano","hades"]);
-            $table->boolean('activo');
+            $table->boolean('activo')->default(0);
             $table->integer('sabiduria')->nullable();
             $table->integer('nobleza')->nullable();
             $table->integer('virtud')->nullable();

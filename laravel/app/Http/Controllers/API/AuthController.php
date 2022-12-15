@@ -25,7 +25,7 @@ use function Symfony\Component\String\b;
 
 class AuthController extends Controller
 {
-    public function login(Request $request)
+    public function login(Request $request) //Mario e Inés
     {
         if (Auth::attempt(['name' => $request->name, 'password' => $request->password]) || Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $auth = Auth::user();
@@ -51,7 +51,8 @@ class AuthController extends Controller
             }
 
             $success['token'] =  $auth->createToken($token['nombre'], $token['hab'])->plainTextToken;
-            $success['name'] =  $auth->name;
+            $success['id'] =  $auth->id;
+            $success['rol'] = $auth->rol;
 
             response()->json(['success' =>true, $success], 200);
 
@@ -63,7 +64,7 @@ class AuthController extends Controller
     }
 
 
-    public function register(Request $request)
+    public function register(Request $request) // Mario e Inés
     {
         $messages = [
             'email' => 'El campo no se ajusta a un correo estándar',
@@ -86,8 +87,12 @@ class AuthController extends Controller
 
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);  //También vale: Hash::make($request->password)
+
+        $humano = new Humano;
         $user = User::create($input);
-        $humano = Humano::create($input);
+        $humano->id_humano = $user->id;
+        $humano->save();
+
         EnviarCorreo::enviarCorreo($request); // envio el correo de verificación
         $success['token']  = $user->createToken('nuevo', ["User"])->plainTextToken;
         $success['name'] =  $user->name;

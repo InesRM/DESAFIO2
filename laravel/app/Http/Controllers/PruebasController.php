@@ -1,4 +1,5 @@
 <?php
+// Mario (todo el archivo)
 
 namespace App\Http\Controllers;
 
@@ -150,16 +151,16 @@ class PruebasController extends Controller {
             JOIN pruebas_eleccion on pruebas_oraculo.id = pruebas_eleccion.id');
 
         $pruebas['respLibre'] = DB::select('SELECT pruebas.id, pruebas.destino, pruebas.titulo, pruebas_oraculo.pregunta,
-            palabrasClave, porcentaje, atributo FROM pruebas JOIN pruebas_oraculo on pruebas.id = pruebas_oraculo.id
+            palabras_clave, porcentaje FROM pruebas JOIN pruebas_oraculo on pruebas.id = pruebas_oraculo.id
             JOIN pruebas_resp_libre on pruebas_oraculo.id = pruebas_resp_libre.id');
 
         foreach ($pruebas['respLibre'] as $prueba) {
-            $prueba->palabra_clave = explode(' ', $prueba->palabra_clave);
+            $prueba->palabras_clave = explode(' ', $prueba->palabras_clave);
         }
 
         $pruebas['valoracion'] = DB::select('SELECT pruebas.id, pruebas.destino, pruebas.titulo, pruebas_oraculo.pregunta,
             respuesta, atributo FROM pruebas JOIN pruebas_oraculo on pruebas.id = pruebas_oraculo.id
-            JOIN pruebas_resp_libre on pruebas_oraculo.id = pruebas_valoracion.id');
+            JOIN pruebas_valoracion on pruebas_oraculo.id = pruebas_valoracion.id');
 
         $pruebas['puntuales'] = DB::select('SELECT pruebas.id, pruebas.destino, pruebas.titulo, descripcion,
             porcentaje, atributo FROM pruebas JOIN pruebas_puntuales on pruebas.id = pruebas_puntuales.id');

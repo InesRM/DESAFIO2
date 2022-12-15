@@ -1,3 +1,4 @@
+// Mario (todo el archivo)
 import {fetchCaracteristicas} from "../http/httpProvider";
 import {validacion} from "./validarCaracteristicas";
 

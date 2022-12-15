@@ -1,0 +1,20 @@
+@mixin crearPruebas($tema) {
+    body {
+        div.modalCrear {
+            width: max-content;
+        }
+        
+        button.botonCrearPrueba {
+            width: 22vw;
+            height: 25vh;
+
+            img {
+                width: 35%;
+            }   
+
+            div.texto {
+                font-size: map.get($tema, "tamLetra");
+            }
+        }
+    }
+}

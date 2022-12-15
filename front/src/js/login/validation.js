@@ -19,60 +19,6 @@ const init = () => {
 };
 
 const validation = () => {
-  email.addEventListener("input", (event) => {
-    if (email.validity.valid) {
-      emailError.innerHTML = ""; //Restablece el contenido del mensaje
-      emailError.className = "error"; //Restablece el estado visual el mensaje
-    } else {
-      //Si todavía hay error, muestra el error
-      showError();
-    }
-  });
-
-  /***********Login********/
-  form.addEventListener("submit", (event) => {
-    if (!email.validity.valid) {
-      showError();
-      event.preventDefault(); //Evitamos que se envíe el formulario
-    } else if (!password.validity.valueMissing) {
-      passwordError.textContent = "El campo no puede estar vacio";
-    } else {
-      const data = document.getElementById(".formulario__login");
-      const usuario = Object.fromEntries(data);
-      consultarUsuario(usuario).then((data) => {
-        console.warn(data);
-        guardarUserLs(data.data);
-        location.href = "http://localhost:8080/html/interfazHumano.html";
-      });
-      event.preventDefault();
-      showError();
-    }
-
-  });
-  /***********Register********/
-  form2.addEventListener("submit", (event) => {
-    
-    if (!email.validity.valid) {
-      showError();
-      event.preventDefault(); //Evitamos que se envíe el formulario
-    } else if (!password.validity.valueMissing) {
-      passwordError.textContent = "El campo no puede estar vacio";
-    } else if (!name.validity.valueMissing) {
-      nameError.textContent = "El campo no puede estar vacio";
-    } else {
-      const data = new FormData(document.getElementById("formulario__register"));
-      const usuario = Object.fromEntries(data);
-      crearUsuario(usuario).then((data) => {
-        console.warn(data);
-        guardarUserLs(data.data);
-          location.href = "http://localhost:8080/html/ok.html";     
-      });
-      event.preventDefault();
-      showError();
-    }
-  });
-};
-=======
     email.addEventListener('input', (event) => {
         if(email.validity.valid) {
            
@@ -83,18 +29,34 @@ const validation = () => {
         }
     });
 
-    form.addEventListener('submit', (event) => {
+    form.addEventListener('submit', (event) => { // Mario e Inés
         if(!email.validity.valid) {
             showError();
             event.preventDefault(); //Evitamos que se envíe el formulario
         } else {
-            console.warn(form);
             const data = new FormData(form);
             const usuario = Object.fromEntries(data);
+            // let pag = '';
+
             crearUsuario(usuario).then(data => {
                 guardarUserLs(data.data);
+                
+                // switch (data.rol) {
+                //     case 'humano':
+                //         pag = '../../html/interfazHumano.html';
+                //         break;
+                
+                //     case 'dios':
+                //         pag = '../../html/interfazDios.html';
+                //         break;
+
+                //     default:
+                //         break;
+                // }
             });
-            event.preventDefault();
+
+            // window.location.href = pag;
+            event.preventDefault(); 
         }
         validation();
     });

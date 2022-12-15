@@ -36,23 +36,23 @@ Route::get('getDiosProtector/{id}',[UserController::class, 'getDiosProtector']);
 
 
 
-Route::controller(InfoController::class)->prefix('cosa')->group(function() {
-    //faltan cosas.....
-    Route::get('getdestino/{id}', 'getDestino');
-    Route::put('updatedestino/{id}', 'updateDestino');
+// Mario (de aquí para abajo)
+Route::controller(InfoController::class)->prefix('general')->group(function() {
+
+    Route::get('getdestino/{id}', 'getDestino')->middleware(['midHumano']);
+    Route::put('updatedestino/{id}', 'updateDestino')->middleware(['midDios']);
     Route::get('getcaracteristicas/{id}', 'getCaracteristicas');
-    Route::put('updatecaracteristicas/{id}', 'updateCaracteristicas');
-    Route::put('updatenombre/{id}', 'updateNombre');
-    Route::get('gethumanos/{idDios}', 'getHumanos'); // gethumanos/{idDios}
+    Route::put('updatecaracteristicas/{id}', 'updateCaracteristicas')->middleware(['midDios']);
+    Route::get('gethumanos/{idDios}', 'getHumanos')->middleware(['midDios']); // gethumanos/{idDios}
 });
 
 
 Route::controller(PruebasController::class)->prefix('pruebas')->group(function() {
-    Route::post('insertpruebaeleccion', 'insertPruebaEleccion');
-    Route::post('insertpruebapuntual', 'insertPruebaPuntual');
-    Route::post('insertpruebaresplibre', 'insertPruebaRespLibre');
-    Route::post('insertpruebavaloracion', 'insertPruebaValoracion');
-    Route::get('getpruebas', 'getPruebas');
-    Route::get('gethumanosasig/{id}', 'getHumanosAsig');
-    Route::post('asignarprueba', 'asignarPrueba');
+    Route::post('insertpruebaeleccion', 'insertPruebaEleccion')->middleware(['midDios']);
+    Route::post('insertpruebapuntual', 'insertPruebaPuntual')->middleware(['midDios']);
+    Route::post('insertpruebaresplibre', 'insertPruebaRespLibre')->middleware(['midDios']);
+    Route::post('insertpruebavaloracion', 'insertPruebaValoracion')->middleware(['midDios']);
+    Route::get('getpruebas', 'getPruebas')->middleware(['midDios']);
+    Route::get('gethumanosasig/{id}', 'getHumanosAsig')->middleware(['midDios']);
+    Route::post('asignarprueba', 'asignarPrueba')->middleware(['midDios']);
 });
