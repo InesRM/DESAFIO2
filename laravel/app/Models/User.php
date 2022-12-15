@@ -16,18 +16,32 @@ class User extends Authenticatable
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
+     * @author Ines
      */
+
+    protected $primaryKey = 'id';
     protected $fillable = [
+        'id',
         'name',
         'email',
         'password',
-        'rol'
+        'rol',
+        'activo',
+        'sabiduria',
+        'nobleza',
+        'virtud',
+        'maldad',
+        'audacia',
     ];
-    //   Esta función se creó para crear dependencias con una tabla dioses que de momento no es necesaria
-    // function dios()
-    // {
-    //     return $this->hasOne('App\Models\Dios');
-    // }
+
+    function humano()
+    {
+        return $this->hasOne('App\Models\Humano');
+    }
+    function dios()
+    {
+        return $this->hasOne('App\Models\Dios');
+    }
 
     /**
      * The attributes that should be hidden for serialization.

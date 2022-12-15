@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+use Illuminate\Http\Request;
+
+class midDios
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\AuthenticationException
+     * @author Ines
+     */
+
+    public function handle(Request $request, Closure $next)
+    {
+        if ($request->user()->tokenCan("Dios")) {
+            return $next($request);
+        }else{
+            return response()->json("No tienes permisos para realizar esta accion",200);
+        }
+    }
+}

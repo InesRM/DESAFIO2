@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class HumanoSeeder extends Seeder
+class DiosSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,7 @@ class HumanoSeeder extends Seeder
      */
     public function run()
     {
-        //*********************************** */ Hay que cambiar de 10 a 3 para crear los dioses dentro de usuarios
-        \App\Models\User::factory(10)->create();
-    }
+        \App\Models\User::factory(2)->create(); //Crea 2 registros en la tabla dioses
+
+}
 }

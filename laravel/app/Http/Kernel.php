@@ -63,5 +63,10 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'midDios' => \App\Http\Middleware\midDios::class,
+        'midHades' => \App\Http\Middleware\midHades::class,
+        'midHumanos' => \App\Http\Middleware\midHumanos::class,
+        'abilities' => \App\Http\Middleware\CheckAbilities::class, //después de horas de búsqueda
+        'ability' => \App\Http\Middleware\CheckForAnyAbility::class,//añadido sugerencia de stackoverflow
     ];
 }
