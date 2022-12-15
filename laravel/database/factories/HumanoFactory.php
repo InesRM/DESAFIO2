@@ -14,7 +14,9 @@ class HumanoFactory extends Factory
      * Define the model's default state.
      *
      * @return array<string, mixed>
+     * @author Ines
      */
+
     public function definition()
     {
         return [

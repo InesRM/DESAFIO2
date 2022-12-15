@@ -7,10 +7,10 @@ export const validacion = () => {
     const campos = form.getElementsByClassName('inputCaracteristica');
     const errorSpan = form.getElementsByClassName('error')[0];
 
-    form.addEventListener('submit', async(e) => {
+    form.addEventListener('submit', async(e) => { // async cuando realice petición al servidor
         const data = new FormData(form);
         const caracteristicas = Object.fromEntries(data.entries());
-        updateCaracteristicas().then(console.log); // EN CUARENTENA
+        updateCaracteristicas(caracteristicas).then(console.log);
         await rellenarTablaCaracteristicas();
     });
 }

@@ -18,14 +18,10 @@ const crearHtmlFila = (nombre, cantidad) => {
 
 const crearHtmlCampoModal = (nombre, cantidad) => {
     const htmlCampo = `
-        <div class="row">
-            <div class="col>
-                <label for="${(nombre)}" class="col-form-label float-start">${(nombre)}:</label>
-                <input name="${(nombre)}" type="text" class="form-control mb-3 w-50 float-end inputCaracterisitica" placeholder="${(cantidad)}"
-                    pattern="^[1-5]{1}$"
-                    title="introduce un valor válido (1 - 5)">
-            </div>
-        </div>
+        <label for="${(nombre)}" class="col-form-label">${(nombre)}:</label>
+        <input name="${(nombre)}" type="text" class="form-control mb-3 inputCaracterisitica" placeholder="${(cantidad)}"
+            pattern="^[1-5]{1}$"
+            title="introduce un valor válido (1 - 5)">
     `;
 
     modalCaracteristicas.getElementsByTagName('form')[0].innerHTML += htmlCampo;
@@ -53,7 +49,6 @@ export const rellenarModalCaracterísticas = async() => {
 
     const form = document.createElement('form');
     form.id = 'formCaracteristicas';
-    
     // form.noValidate = true;
     modalCaracteristicas.getElementsByClassName('modal-body')[0].append(form);
 
