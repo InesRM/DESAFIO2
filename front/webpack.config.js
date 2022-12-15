@@ -31,7 +31,11 @@ const filesHTML = [
     {
         filename: './html/humano.html',
         chunks: ['ok']
-    }
+    },
+    {
+        filename: './html/asignarPruebas.html',
+        chunks: ['asignarPruebas']
+    },
 ]
 
 module.exports = {
@@ -86,9 +90,10 @@ module.exports = {
         interfazHumano: './src/js/initInterfaces/interfazHumano.js',
         interfazDios: './src/js/initInterfaces/interfazDios.js',
         crearPruebas: './src/js/initInterfaces/crearPruebas.js',
-        landing: './src/index.js',
+        landing: './src/js/login/landing.js',
         ok: './src/index.js',
         humano: './src/index.js',
+        asignarPruebas: './src/js/asignarPruebas/asignarPruebasComponentes.js'
     },
     optimization: {},
     plugins: [

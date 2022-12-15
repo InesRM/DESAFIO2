@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class InfoController extends Controller {
 
+
     public function getDestino(Request $request) {
         try {
             $user = Humano::find($request->id);

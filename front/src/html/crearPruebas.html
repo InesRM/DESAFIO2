@@ -4,144 +4,403 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login y Registro</title>
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-        rel="stylesheet"> -->
+    
 </head>
-<body>
-   <!-- FORM PRUEBA 50 -->
+<body class="overflow-hidden">
 
-    <div class="container">
-      <div class="card mb-3" id="pregunta50">
-          <div class="card-header bg-primary text-white d-flex justify-content-center"><h5>Pregunta al 50%</h5></div>
-          <div class="card-body h3">
+  <nav class="py-3 bg-light border-bottom">
+    <a href="../html/interfazDios.html" class="nav-link link-dark ps-2 active " aria-current="page">
+      <img src="../assets/icons/column.png" class="position-relative mb-3 icono">
+    </a>
+    <div class="container d-flex flex-wrap">
+      <ul class="nav me-auto">
+        <li class="nav-item"><a href="#" class="nav-link link-dark px-2 active" aria-current="page">Inicio</a></li>
+        <li class="nav-item"><a href="#" class="nav-link link-dark px-2">FAQs</a></li>
+        <li class="nav-item"><a href="#" class="nav-link link-dark px-2">About</a></li>
+      </ul>
+      <ul class="nav">
+        <li class="nav-item"><a href="../index.html" class="nav-link link-dark px-2">Login & registro</a></li>
+      </ul>
+    </div>
+  </nav>
+  <header class="py-3 border-bottom">
+    <div class="container d-flex flex-wrap justify-content-center">
+        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+        <span class="fs-4">Sistema Olympus</span>
+    </div>
+  </header>
 
-            <form id="formPrueba50">
+  <div class="max-width">
+    <div class="row">
+      <div class="col-3">
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark start-0 vh-100">
+          <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+              <a href="./asignarPruebas.html" class="nav-link text-white" aria-current="page">
+                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"/></svg>
+                Zona de pruebas
+              </a>
+            </li>
+            <li>
+              <a href="./crearPruebas.html" class="nav-link text-white active">
+                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
+                Crear pruebas
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link text-white">
+                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+                Crear humanos
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-9">
+        <div class="container mt-4">
 
-              <div class="card mb-3 p-4">
-                <div class="row">
-                  <div class="px-2 col-12">
-                      <label for="titulo" class="col-form-label">Título:</label>
-                      <input name="titulo" type="text" class="form-control mb-3" rows="3" style="resize: none;"></textarea>
+
+          <div class="row">
+            <div class="col p-2 d-flex justify-content-evenly">
+              <button type="button" class="btn btn-primary botonCrearPrueba" data-bs-toggle="modal" data-bs-target="#modalPreguntaEleccion">
+                <img src="../assets/icons/choice.png">
+                <div class="mt-4 texto">Elección</div>
+              </button>
+            </div>
+            <div class="col p-2 d-flex justify-content-center">
+              <button type="button" class="btn btn-primary botonCrearPrueba" data-bs-toggle="modal" data-bs-target="#modalPruebaPuntual">
+                <img src="../assets/icons/achievement.png">
+                <div class="mt-4 texto">Puntual</div>
+              </button>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col p-2 d-flex justify-content-evenly">
+              <button type="button" class="btn btn-primary botonCrearPrueba" data-bs-toggle="modal" data-bs-target="#modalPreguntaRespLibre">
+                <img src="../assets/icons/question.png">
+                <div class="mt-4 texto">De respuesta libre</div>
+              </button>
+            </div>
+            <div class="col p-2 d-flex justify-content-center">
+              <button type="button" class="btn btn-primary botonCrearPrueba" data-bs-toggle="modal" data-bs-target="#modalPreguntaValoracion">
+                <img src="../assets/icons/rating.png">
+                <div class="mt-4 texto">Valoración</div>
+              </button>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Modal -->
+
+    <div class="modal fade" id="modalPreguntaEleccion" tabindex="-1" aria-labelledby="modalPreguntaEleccionLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content modalCrear">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalPreguntaEleccionLabel">Crear prueba de elección</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="card mb-3 border-0" id="pregunta50">
+              <div class="card-body">
+    
+                <form id="formPrueba50">
+    
+                  <div class="card mb-3 p-4">
+                    <div class="row">
+                      <div class="px-2 col-12">
+                          <label for="titulo" class="col-form-label">Título:</label>
+                          <input name="titulo" type="text" class="form-control mb-3" rows="3" style="resize: none;"></textarea>
+                      </div>
+                    </div>
+                  </div>
+    
+                  <div class="card mb-3 p-4">
+                    <div class="row">
+                      <div class="px-2 col-12">
+                          <label for="pregunta" class="col-form-label">Pregunta:</label>
+                          <textarea name="pregunta" class="form-control mb-3" rows="3" style="resize: none;"></textarea>
+                      </div>
+                    </div>
+                  </div>
+    
+    
+                  <div class="card mb-3 p-4">
+                    <div class="row">
+                      <div class="px-2 col-6">
+                          <label for="respuestaCorrecta" class="col-form-label ml-4">Respuesta correcta:</label>
+                          <input name="respuestaCorrecta" type="text" class="form-control mb-3 ml-4 w-95">
+                      </div>
+                      <div class="px-2 col-6">
+                          <label for="respuestaIncorrecta" class="col-form-label ml-4">Respuesta incorrecta:</label>
+                          <input name="respuestaIncorrecta" type="text" class="form-control mb-3 ml-4 w-95">
+                      </div> 
+                    </div>
+                  </div>
+    
+                  <div class="card mb-3 p-4">
+                    <div class="row">
+                      <div class="px-2 col-12">
+                          <label for="destino" class="col-form-label ml-4 float-start my-2">Destino:</label>
+                          <input name="destino" type="text" class="form-control mb-3 ml-4 w-50 float-end my-2"
+                            pattern="[0-9]{1,2}$" title="inserta un número en correcto (1-99)">
+                      </div>
+                      <div class="px-2 col-12">
+                        <label for="atributo" class="col-form-label ml-4 float-start my-2">Atributo:</label>
+                        <select name="atributo" class="form-select w-50 float-end my-2" aria-label="Default select example" required>
+                          <option selected>Atributos</option>
+                          <option value="sabiduria">Sabiduría</option>
+                          <option value="nobleza">Nobleza</option>
+                          <option value="virutd">Virtud</option>
+                          <option value="maldad">Maldad</option>
+                          <option value="audacia">Audacia</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+    
+                  <button type="submit" class="btn btn-primary float-end">Aceptar</button> 
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="modalPruebaPuntual" tabindex="-1" aria-labelledby="modalPruebaPuntualLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content modalCrear">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalPruebaPuntualLabel">Crear prueba puntual</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="card mb-3 border-0" id="pruebaPuntual">
+            <div class="card-body">
+      
+              <form id="formPruebaPuntual">
+      
+                <div class="card mb-3 p-4">
+                  <div class="row">
+                    <div class="px-2 col-12">
+                        <label for="titulo" class="col-form-label">Título:</label>
+                        <input name="titulo" type="text" class="form-control mb-3" rows="3" style="resize: none;"></textarea>
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              <div class="card mb-3 p-4">
-                <div class="row">
-                  <div class="px-2 col-12">
-                      <label for="pregunta" class="col-form-label">Pregunta:</label>
-                      <textarea name="pregunta" class="form-control mb-3" rows="3" style="resize: none;"></textarea>
+      
+                <div class="card mb-3 p-4">
+                  <div class="row">
+                    <div class="px-2 col-12">
+                      <label for="descripcion" class="col-form-label">Descripción:</label>
+                      <textarea name="descripcion" class="form-control mb-3" rows="5" style="resize: none;"></textarea>
+                    </div>
                   </div>
                 </div>
-              </div>
-
-
-              <div class="card mb-3 p-4">
-                <div class="row">
-                  <div class="px-2 col-6">
-                      <label for="respuestaCorrecta" class="col-form-label ml-4">Respuesta correcta:</label>
-                      <input name="respuestaCorrecta" type="text" class="form-control mb-3 ml-4 w-95">
+      
+                
+      
+                <div class="card mb-3 p-4">
+                  <div class="row">
+                    <div class="px-2 col-12">
+                      <label for="porcentaje" class="col-form-label float-start">Porcentaje:</label>
+                      <input name="porcentaje" type="text" class ="form-control float-end mb-3 w-50 w-95"
+                        pattern="[0-9]{1,2}$"
+                        title="introduce un porcentaje válido (0-99)"
+                        >
+                    </div>
                   </div>
-                  <div class="px-2 col-6">
-                      <label for="respuestaIncorrecta" class="col-form-label ml-4">Respuesta incorrecta:</label>
-                      <input name="respuestaIncorrecta" type="text" class="form-control mb-3 ml-4 w-95">
-                  </div> 
                 </div>
-              </div>
-
-              <div class="card mb-3 p-4">
-                <div class="row">
-                  <div class="px-2 col-12">
-                      <label for="destino" class="col-form-label ml-4 float-start my-2">Destino:</label>
-                      <input name="destino" type="text" class="form-control mb-3 ml-4 w-25 float-end my-2"
+      
+                <div class="card mb-3   ">
+                  <div class="row">
+                    <div class="px-2 col-12">
+                      <label for="destino" class="col-form-label ms-4 float-start my-2">Destino:</label>
+                      <input name="destino" type="text" class="form-control mb-3 ml-4 w-50 d-inline float-end my-3 me-3"
                         pattern="[0-9]{1,2}$" title="inserta un número en correcto (1-99)">
-                  </div>
-                  <div class="px-2 col-12">
-                    <label for="atributo" class="col-form-label ml-4 float-start my-2">Atributo:</label>
-                    <select name="atributo" class="form-select w-25 float-end my-2" aria-label="Default select example" required>
-                      <option selected>Atributos</option>
-                      <option value="sabiduria">Sabiduría</option>
-                      <option value="nobleza">Nobleza</option>
-                      <option value="virutd">Virtud</option>
-                      <option value="maldad">Maldad</option>
-                      <option value="audacia">Audacia</option>
-                    </select>
+                    </div>
+                    <div class="px-2 col-12">
+                      <label for="atributo" class="col-form-label ms-4 float-start my-2">Atributo:</label>
+                      <select name="atributo" class="form-select w-50 float-end my-2 me-3" aria-label="Default select example" required>
+                        <option selected>Atributos</option>
+                        <option value="sabiduria">Sabiduría</option>
+                        <option value="nobleza">Nobleza</option>
+                        <option value="virutd">Virtud</option>
+                        <option value="maldad">Maldad</option>
+                        <option value="audacia">Audacia</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              <button type="submit" class="btn btn-primary float-right">Aceptar</button> 
-            </form>
+      
+                <button type="submit" class="btn btn-primary float-end">Aceptar</button> 
+              </form>
+            </div>
           </div>
+        </div>
       </div>
     </div>
+  </div>
 
-    <!-- FORM PRUEBA PUNTUAL -->
-    <div class="card mb-3" id="pruebaPuntual">
-      <div class="card-header bg-primary text-white d-flex justify-content-center"><h5>pruebaPuntual</h5></div>
-      <div class="card-body h3">
 
-        <form id="formPruebaPuntual">
 
-          <div class="card mb-3 p-4">
-            <div class="row">
-              <div class="px-2 col-12">
-                  <label for="titulo" class="col-form-label">Título:</label>
-                  <input name="titulo" type="text" class="form-control mb-3" rows="3" style="resize: none;"></textarea>
-              </div>
+  <div class="modal fade" id="modalPreguntaRespLibre" tabindex="-1" aria-labelledby="modalPreguntaRespLibreLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content modalCrear">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalPreguntaRespLibreLabel">Crear prueba de respuesta libre</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="card mb-3 border-0" id="preguntaRespLibre">
+            <div class="card-body">
+  
+              <form id="formPruebaRespLibre">
+  
+                <div class="card mb-3 p-4">
+                  <div class="row">
+                    <div class="px-2 col-12">
+                        <label for="titulo" class="col-form-label">Título:</label>
+                        <input name="titulo" type="text" class="form-control mb-3" rows="3" style="resize: none;"></textarea>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="card mb-3 p-4">
+                  <div class="row">
+                    <div class="px-2 col-12">
+                        <label for="pregunta" class="col-form-label">Pregunta:</label>
+                        <textarea name="pregunta" class="form-control mb-3" rows="3" style="resize: none;"></textarea>
+                    </div>
+                  </div>
+                </div>
+  
+  
+                <div class="card mb-3 p-4">
+                  <div class="row">
+                    <div class="px-2 col-12">
+                        <label for="palabrasClave" class="col-form-label ml-4 mb-2">Palabras clave:</label>
+                        <input name="palabrasClave" type="text" class="form-control mb-3 ml-4 w-95" 
+                          placeholder="Separadas por ' ' (espacio)">
+                    </div>
+                    <div class="px-2 col-12">
+                      <label for="porcentaje" class="col-form-label float-start">Porcentaje:</label>
+                      <input name="porcentaje" type="text" class ="form-control float-end mb-3 w-50"
+                        pattern="[0-9]{1,2}$"
+                        title="introduce un porcentaje válido (0-99)"
+                        >
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="card mb-3 p-4">
+                  <div class="row">
+                    <div class="px-2 col-12">
+                        <label for="destino" class="col-form-label ml-4 float-start my-2">Destino:</label>
+                        <input name="destino" type="text" class="form-control mb-3 ml-4 w-50 float-end my-2"
+                          pattern="[0-9]{1,2}$" title="inserta un número en correcto (0-99)">
+                    </div>
+                  </div>
+                </div>
+  
+                <button type="submit" class="btn btn-primary float-end">Aceptar</button> 
+              </form>
             </div>
           </div>
-
-          <div class="card mb-3 p-4">
-            <div class="row">
-              <div class="px-2 col-12">
-                <label for="descripcion" class="col-form-label">Descripción:</label>
-                <textarea name="descripcion" class="form-control mb-3" rows="5" style="resize: none;"></textarea>
-              </div>
-            </div>
-          </div>
-
-          
-
-          <div class="card mb-3 p-4">
-            <div class="row">
-              <div class="px-2 col-12">
-                <label for="porcentaje" class="col-form-label ms-4 float-start">Porcentaje:</label>
-                <input name="porcentaje" type="text" class ="form-control float-end mb-3 my-3 w-25 me-3 w-95"
-                  pattern="[0-9]{1,2}$"
-                  title="introduce un porcentaje válido (0-99)"
-                  >
-              </div>
-            </div>
-          </div>
-
-          <div class="card mb-3   ">
-            <div class="row">
-              <div class="px-2 col-12">
-                <label for="destino" class="col-form-label ms-4 float-start my-2">Destino:</label>
-                <input name="destino" type="text" class="form-control mb-3 ml-4 w-25 d-inline float-end my-3 me-3"
-                  pattern="[0-9]{1,2}$" title="inserta un número en correcto (1-99)">
-              </div>
-              <div class="px-2 col-12">
-                <label for="atributo" class="col-form-label ms-4 float-start my-2">Atributo:</label>
-                <select name="atributo" class="form-select w-25 float-end my-2 me-3" aria-label="Default select example" required>
-                  <option selected>Atributos</option>
-                  <option value="sabiduria">Sabiduría</option>
-                  <option value="nobleza">Nobleza</option>
-                  <option value="virutd">Virtud</option>
-                  <option value="maldad">Maldad</option>
-                  <option value="audacia">Audacia</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <button type="submit" class="btn btn-primary float-end">Aceptar</button> 
-        </form>
+        </div>
       </div>
     </div>
+  </div>
+
+
+
+
+  <div class="modal fade" id="modalPreguntaValoracion" tabindex="-1" aria-labelledby="modalPreguntaValoracion" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content modalCrear">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalPreguntaValoracion">Crear prueba de valoración</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="card mb-3 border-0" id="preguntaValoracion">
+            <div class="card-body">
+  
+              <form id="formPruebaValoracion">
+  
+                <div class="card mb-3 p-4">
+                  <div class="row">
+                    <div class="px-2 col-12">
+                        <label for="titulo" class="col-form-label">Título:</label>
+                        <input name="titulo" type="text" class="form-control mb-3" rows="3" style="resize: none;"></textarea>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="card mb-3 p-4">
+                  <div class="row">
+                    <div class="px-2 col-12">
+                        <label for="pregunta" class="col-form-label">Pregunta:</label>
+                        <textarea name="pregunta" class="form-control mb-3" rows="3" style="resize: none;"></textarea>
+                    </div>
+                  </div>
+                </div>
+  
+  
+                <div class="card mb-3 p-4">
+                  <div class="row">
+                    <div class="px-2 col-12">
+                        <label for="valoracion" class="col-form-label ml-4 mb-2">valoración correcta:</label>
+                        <input name="valoracion" type="text" class ="form-control float-end mb-3 w-50"
+                        pattern="[0-5]$"
+                        title="introduce un número válido (0-5)"
+                        >
+                    </div>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="card mb-3 p-4">
+                  <div class="row">
+                    <div class="px-2 col-12">
+                        <label for="destino" class="col-form-label ml-4 float-start my-2">Destino:</label>
+                        <input name="destino" type="text" class="form-control mb-3 ml-4 w-50 float-end my-2"
+                          pattern="[0-9]{1,2}$" title="inserta un número en correcto (0-99)">
+                    </div>
+                    <div class="px-2 col-12">
+                      <label for="atributo" class="col-form-label ml-4 float-start my-2">Atributo:</label>
+                      <select name="atributo" class="form-select w-50 float-end my-2" aria-label="Default select example" required>
+                        <option selected>Atributos</option>
+                        <option value="sabiduria">Sabiduría</option>
+                        <option value="nobleza">Nobleza</option>
+                        <option value="virutd">Virtud</option>
+                        <option value="maldad">Maldad</option>
+                        <option value="audacia">Audacia</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+  
+                <button type="submit" class="btn btn-primary float-end">Aceptar</button> 
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
 </body>
 </html>

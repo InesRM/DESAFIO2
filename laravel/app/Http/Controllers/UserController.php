@@ -21,8 +21,23 @@ use App\Http\Controllers\HumanoController\AsignarDios;
  */
 
 
-class UserController extends Controller // Ines*************************
+class UserController extends Controller
 {
+
+    public function getDiosProtector(Request $request)
+    {
+        try {
+            $user= DB::table('humanos')->get();
+            $user = Humano::find($request->id);
+
+            $resp  = response()->json(['dios_protector' => $user->dios_protector], 200);
+        }
+        catch (\Exception $e) {
+            $resp = response()->json(['error' => 'ha ocurrido un error'], 204);
+        }
+
+        return $resp;
+    }
     public function mostrarHumanos()
     {
         $res = null;
@@ -31,26 +46,6 @@ class UserController extends Controller // Ines*************************
     }
 
 
-
-
-    public function getDiosProtector(Request $request, $id)
-    {
-        try {
-            $user = Humano::find($request->id);
-            $humano = DB::table('humanos')->where('id', $id)->get();
-
-
-            $dios_protector = [
-                // 'id' => $humano->id,
-                'dios_protector' => $humano->dios_protector
-            ];
-
-            $resp = response()->json($dios_protector, 200);
-        } catch (\Exception $e) {
-            $resp = response()->json(['error' => 'ha ocurrido un error'], 204);
-        }
-        return $resp;
-    }
     public function mostrarHumano(Request $request, $id)
     {
         $user = User::find($id);
@@ -193,13 +188,13 @@ class UserController extends Controller // Ines*************************
             HumanoController::AsignarDios($humano[0]->id_humano);
 
             response()->json("El humano ha sido activado", 200);
-            return redirect('http://localhost:8080/index.html')->with('status', 'El humano ha sido activado');
+            return redirect('http://localhost:8080/html/landing.html')->with('id_humano', 'El humano ha sido activado');
         } else {
             // return response()->json("El humano ya estaba activo", 200);
 
             response()->json("El humano ya estaba activo", 200);
 
-            return redirect('http://localhost:8080/index.html')->with ('status', 'El humano ya estaba activado');
+            return redirect('http://localhost:8080/index.html')->with('status', 'El humano ya estaba activado');
         }
     }
 }

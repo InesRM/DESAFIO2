@@ -79,7 +79,9 @@ class AuthController extends Controller
         ], $messages);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
+
+            response()->json($validator->errors(), 400);
+            return redirect()->back()->withErrors($validator->errors());
         }
 
         $input = $request->all();

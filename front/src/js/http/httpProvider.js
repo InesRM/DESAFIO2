@@ -1,6 +1,6 @@
-const urlInfo = 'http://127.0.0.1:8000/api/info';
+const urlCosa = 'http://127.0.0.1:8000/api/cosa';
 const urlPruebas = 'http://127.0.0.1:8000/api/pruebas';
-const urlConsultas = 'http://localhost:8000/api';
+const urlConsultas = 'http://127.0.0.1:8000/api/getDiosProtector/31';
 const urlLogin = 'http://localhost:8000/api/users/login';
 
 /**@author Ines */
@@ -9,13 +9,11 @@ const urlLogin = 'http://localhost:8000/api/users/login';
 export const fetchDiosProtector = async() => {
 
     try {
-        const id= await fetch(urlLogin,'id');
-        const resp = await fetch(urlConsultas+'/users/getDiosProtector'+id); // + el user
-        
-        const dios_protector = await resp.json();
-        console.log(dios_protector);	
-        const dios=JSON.stringify(dios_protector);
-        return dios.dios_protector;
+        const id= await fetch(urlConsultas);
+        const resp = await fetch(urlConsultas);
+        const data = await resp.json();
+        return data.dios_protector;
+      
     }
     catch (error) {
         throw error;
@@ -25,7 +23,7 @@ export const fetchDiosProtector = async() => {
 
 export const fetchDestino = async() => {
     try {
-        const resp = await fetch(urlInfo + '/getdestino/1'); // + el user
+        const resp = await fetch(urlCosa + '/getdestino/1'); // + el user
         if(!resp.ok) throw ('No se pudo realizar la petición');
         // resp.json().then(console.log);
         const {destino} = await resp.json();
@@ -40,7 +38,7 @@ export const fetchDestino = async() => {
 
 export const fetchCaracteristicas = async() => {
     try {
-        const resp = await fetch(urlConsultas + '/getcaracteristicas/1'); // + el user
+        const resp = await fetch(urlCosa + '/getcaracteristicas/1'); // + el user
         if(!resp.ok) throw ('No se pudo realizar la petición');
         const caracteristicas = await resp.json();
 
@@ -53,7 +51,7 @@ export const fetchCaracteristicas = async() => {
 
 export const updateCaracteristicas = async(caracteristicas) => {
 
-    const resp = await fetch(urlInfo + '/updatecaracteristicas/1', { // + el user
+    const resp = await fetch(urlCosa + '/updatecaracteristicas/1', { // + el user
         method: 'PUT', 
         body: JSON.stringify(caracteristicas),
         headers: {'Content-Type': 'application/json'} 

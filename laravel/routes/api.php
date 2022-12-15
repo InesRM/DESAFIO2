@@ -31,13 +31,13 @@ Route::post('/users/logout', [AuthController::class, 'logout']);
 Route::post('/users/register', [AuthController::class, 'register']);
 Route::post('enviarCorreo', [EnviarCorreo::class, 'enviarCorreo']);
 Route::get('/users/activarHumano/{email}',[UserController::class, 'activarHumano']);
+Route::get('/getDiosProtector/{id}',[UserController::class, 'getDiosProtector']);
 //faltan rutas.....
 
 
 
 Route::controller(InfoController::class)->prefix('cosa')->group(function() {
-//faltan cosas.....
-    Route::get('getDiosProtector/{id}', 'getDiosProtector');
+    //faltan cosas.....
     Route::get('getdestino/{id}', 'getDestino');
     Route::put('updatedestino/{id}', 'updateDestino');
     Route::get('getcaracteristicas/{id}', 'getCaracteristicas');
