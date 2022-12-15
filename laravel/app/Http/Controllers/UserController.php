@@ -80,7 +80,7 @@ class UserController extends Controller // Ines*************************
         }
     }
 
-    private function asignarDioses($humano) {
+    private function asignarDioses($humano) { // Mario e Inés
         $dioses = DB::select('SELECT id FROM users WHERE rol LIKE "dios"'); // ids de los dioses (falta el where)
         $atribDioses = DB::select('SELECT sabiduria, nobleza, virtud, maldad, audacia FROM users WHERE rol LIKE "dios"'); // atributos de los dioses (falta el where)
 
@@ -101,7 +101,7 @@ class UserController extends Controller // Ines*************************
         return $dioses[$keyDios]->id;
     }
 
-    public function activarHumano($email) {
+    public function activarHumano($email) { // Mario e Inés
         $user = User::where('email', $email)->get()[0];
 
         $user->sabiduria = random_int(1, 5);

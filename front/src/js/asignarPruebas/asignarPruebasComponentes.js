@@ -1,3 +1,4 @@
+// Mario (todo el archivo)
 import {cargarHumanosLs} from "../localStorage/localStorage";
 
 const {asignarPruebas, fetchHumanos} = require("../http/httpProvider");
@@ -28,12 +29,9 @@ const crearTarjHumanoHtml = (humano) => {
     tarjDiv.nombre = humano.name;
     tarjDiv.draggable = true;
 
-
-
     const html = `
         <div class="card-body">${(humano.name)}</div>
     `;
-
 
     tarjDiv.innerHTML = html;
 
@@ -42,7 +40,6 @@ const crearTarjHumanoHtml = (humano) => {
     });
 
     contTarjetasHumano.append(tarjDiv);
-
 
     return tarjDiv;
 }
@@ -68,6 +65,7 @@ const generarHtmlTooltip = (prueba, tipo) => {
             </p>
             `;
             break;
+
         case 'eleccion' :
             html = `
             <b>Pregunta</b>
@@ -85,6 +83,50 @@ const generarHtmlTooltip = (prueba, tipo) => {
                 <br>
             </p>
             `;
+
+            break;
+
+            case 'respLibre' :
+                console.warn(prueba);
+                let palabrasClave = '';
+                for(palabra of prueba.palabras_clave) {
+                    palabrasClave += palabra + ' ';
+                }
+                html = `
+                <b>Pregunta</b>
+                <p>
+                    ${(prueba.pregunta)}
+                </p>
+                <p>
+                    <b>Destino: </b> ${(prueba.destino)} 
+                    <br>
+                    <b>palabras Clave: </b> ${(palabrasClave)} 
+                    <br>
+                    <b>Atributo: </b> ${(prueba.atributo)}
+                    <br>
+                </p>
+                `;
+    
+                break;
+
+            case 'valoracion':
+                console.warn(prueba);
+                html = `
+                <b>Pregunta</b>
+                <p>
+                    ${(prueba.pregunta)}
+                </p>
+                <p>
+                    <b>Destino: </b> ${(prueba.destino)} 
+                    <br>
+                    <b>valoración correcta </b> ${(prueba.respuesta)} 
+                    <br>
+                    <br>
+                    <b>Atributo: </b> ${(prueba.atributo)}
+                    <br>
+                </p>
+                `;
+                break;
         default:
             break;
     }

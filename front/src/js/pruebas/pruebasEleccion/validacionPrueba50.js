@@ -1,3 +1,4 @@
+// Mario (todo el archivo)
 import {insertPreguntaEleccion} from "../../http/httpProvider";
 import {limpiarForm} from "../pruebasComponentes";
 

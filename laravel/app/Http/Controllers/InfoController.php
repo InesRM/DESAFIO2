@@ -1,5 +1,7 @@
 <?php
 
+// Mario (todo el archivo)
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;

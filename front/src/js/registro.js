@@ -1,1 +1,0 @@
-console.log('También se carga el js de registro')

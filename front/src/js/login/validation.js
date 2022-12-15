@@ -11,28 +11,44 @@ const init = () => {
 }
 
 const validation = () => {
-    email.addEventListener('input', (event) => {
-        if(email.validity.valid) {
+    // email.addEventListener('input', (event) => {
+    //     if(email.validity.valid) {
            
-            emailError.innerHTML=''; //Restablece el contenido del mensaje
-            emailError.className='error'; //Restablece el estado visual el mensaje
-        } else { //Si todavía hay error, muestra el error
-            showError();
-        }
-    });
+    //         emailError.innerHTML=''; //Restablece el contenido del mensaje
+    //         emailError.className='error'; //Restablece el estado visual el mensaje
+    //     } else { //Si todavía hay error, muestra el error
+    //         showError();
+    //     }
+    // });
 
-    form.addEventListener('submit', (event) => {
+    form.addEventListener('submit', (event) => { // Mario e Inés
         if(!email.validity.valid) {
             showError();
             event.preventDefault(); //Evitamos que se envíe el formulario
         } else {
-            console.warn(form);
             const data = new FormData(form);
             const usuario = Object.fromEntries(data);
+            // let pag = '';
+
             crearUsuario(usuario).then(data => {
                 guardarUserLs(data.data);
+                
+                // switch (data.rol) {
+                //     case 'humano':
+                //         pag = '../../html/interfazHumano.html';
+                //         break;
+                
+                //     case 'dios':
+                //         pag = '../../html/interfazDios.html';
+                //         break;
+
+                //     default:
+                //         break;
+                // }
             });
-            event.preventDefault();
+
+            // window.location.href = pag;
+            event.preventDefault(); 
         }
         validation();
     });

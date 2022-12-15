@@ -1,6 +1,7 @@
+// Mario (todo el archivo)
 import {cargarUserLs} from "../localStorage/localStorage";
 
-const urlInfo = 'http://127.0.0.1:8000/api/cosa';
+const urlInfo = 'http://127.0.0.1:8000/api/general';
 const urlPruebas = 'http://127.0.0.1:8000/api/pruebas';
 
 const user = cargarUserLs();
@@ -8,10 +9,15 @@ const user = cargarUserLs();
 export const fetchDestino = async() => {
     try {
         
-        const resp = await fetch(urlInfo + '/getdestino/1'); // + el user
+        const resp = await fetch(urlInfo + '/getdestino/' + user.id, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + user.token
+            }
+        });
         
         if(!resp.ok) throw ('No se pudo realizar la petición');
-        // resp.json().then(console.log);
         
         const {destino} = await resp.json();
         
@@ -24,7 +30,14 @@ export const fetchDestino = async() => {
 
 export const fetchCaracteristicas = async() => {
     try {
-        const resp = await fetch(urlInfo + '/getcaracteristicas/' + user.id); // + el user
+        const resp = await fetch(urlInfo + '/getcaracteristicas/' + user.id, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + user.token
+            }
+        });
+
         if(!resp.ok) throw ('No se pudo realizar la petición');
         const caracteristicas = await resp.json();
 
@@ -37,34 +50,22 @@ export const fetchCaracteristicas = async() => {
 
 export const updateCaracteristicas = async(caracteristicas) => { // EN CUARENTENA
 
-    const resp = await fetch(urlInfo + '/updatecaracteristicas/1', { // + el user
+    const resp = await fetch(urlInfo + '/updatecaracteristicas/' + user.id, { // + el user
         method: 'PUT', 
         body: JSON.stringify(caracteristicas),
-        headers: {'Content-Type': 'application/json'} 
+        headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + user.token} 
     });
 
     return await resp.json(); 
 }
 
-// export const updateCaracteristicas2 = async() => { // EN CUARENTENA
-//     const options = {
-//         method: 'PUT',
-//         body: '{"sabiduria":5,"nobleza":5,"virtud":1,"maldad":4,"audacia":1}'
-//       };
-      
-//       fetch('http://127.0.0.1:8000/api/cosa/updatecaracteristicas/1', options)
-//         .then(response => response.json())
-//         .then(response => console.log(response))
-//         .catch(err => console.error(err));
-// }
-
 export const insertPreguntaEleccion = async(datos) => {
-
+    console.log(datos);
     const resp = await fetch(urlPruebas
-            + '/insertpruebaeleccion', {
+            + '/insertpruebaeleccion/' + user.id, {
         method: 'POST',
         body: JSON.stringify(datos),
-        headers: {'Content-Type': 'application/json'} 
+        headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + user.token} 
         });
 
     return await resp.json();
@@ -72,10 +73,10 @@ export const insertPreguntaEleccion = async(datos) => {
 
 export const insertPruebaPuntual = async(datos) => {
     const resp = await fetch(urlPruebas
-            + '/insertpruebapuntual', {
+            + '/insertpruebapuntual/', {
         method: 'POST',
         body: JSON.stringify(datos),
-        headers: {'Content-Type': 'application/json'}
+        headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + user.token}
         });
 
     return await resp.json();
@@ -86,7 +87,7 @@ export const insertPruebaRespLibre = async(datos) => {
         + '/insertpruebaresplibre', {
     method: 'POST',
     body: JSON.stringify(datos),
-    headers: {'Content-Type': 'application/json'}
+    headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + user.token}
     });
 
     return await resp.json();
@@ -97,7 +98,7 @@ export const insertPruebaValoracion = async(datos) => {
             + '/insertpruebapuntual', {
         method: 'POST',
         body: JSON.stringify(datos),
-        headers: {'Content-Type': 'application/json'}
+        headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + user.token}
         });
 
     return await resp.json();
@@ -105,9 +106,16 @@ export const insertPruebaValoracion = async(datos) => {
 
 export const fetchPruebas = async() => {
     try {
-        const resp = await fetch(urlPruebas + '/getpruebas');
+        const resp = await fetch(urlPruebas + '/getpruebas', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + user.token
+            }
+        });
+
         if(!resp.ok) throw ('No se pudo realizar la petición');
-        // resp.json().then(console.log);
+
         const pruebas = await resp.json();
         
         return pruebas;
@@ -119,7 +127,14 @@ export const fetchPruebas = async() => {
 
 export const fetchHumanos = async() => {
     try {
-        const resp = await fetch(urlInfo + '/gethumanos/1');
+        const resp = await fetch(urlInfo + '/gethumanos/' + user.id, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + user.token
+            }
+        });
+
         if (!resp.ok) throw ('No se pudo realizar la petición');
         
         const humanos = await resp.json();
@@ -131,12 +146,17 @@ export const fetchHumanos = async() => {
     }
 }
 
-export const fetchAsigPruebas = async() =>  { // CAMBIAR NOMBRE
+export const fetchAsigPruebas = async() =>  { 
     try {
-        const resp = await fetch(urlPruebas + '/gethumanosasig/1'); // + el dios
+        const resp = await fetch(urlPruebas + '/gethumanosasig/' + user.id, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + user.token
+            }
+        });
         if(!resp.ok) throw ('No se pudo realizar la petición');
         const humanosAsig = await resp.json();
-        // console.warn(humanosAsig);
 
         return humanosAsig;
     }

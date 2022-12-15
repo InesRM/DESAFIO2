@@ -8,21 +8,25 @@ use App\UserController\activarHumano;
 class EnviarCorreo extends Controller
 {
     // Ines
-    public static function enviarCorreo(Request $request){
 
-        $email = $request->input('email');
-        $name = $request->input('name');
-        $id = $request->input('id');
-        $data = array('name'=>$name, 'id'=>$id, "body" => "Hola, $name, gracias por registrarte en nuestra web
-        para activar tu cuenta pulsa en el siguiente enlace: http://localhost:8000/api/activarHumano/$id");
+    public static function enviarCorreo(Request $request)
+    {
 
-        Mail::send('welcome', $data, function($message) use ($email, $name) {
-            $message->to($email, $name)->subject('Activar cuenta');
-            $message->from('asir201920200@gmail.com','Activar cuenta');
-        });
-        return response()->json("Correo enviado", 200);
+    $email = $request->input('email');
+    $name = $request->input('name');
+
+    $datos = [
+        'name' => $name,
+        'email' => $email,
+
+    ];
+
+    //se manda la vista "welcome" como cuerpo del correo
+    Mail::send('welcome', $datos, function ($message) use ($email) {
+        $message->to($email)->subject('Activación de cuenta');
+        $message->from('asir201920200@gmail.com', 'Activación de cuenta');
+    });
+
+    return response()->json(["enviado" => true, "mensaje" => "Enviado", 200]);
     }
-
-
-
 }

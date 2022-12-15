@@ -1,3 +1,4 @@
+// Mario (todo el archivo)
 import {updateCaracteristicas} from "../http/httpProvider";
 import {rellenarTablaCaracteristicas} from "./caracteristicasComponentes";
 

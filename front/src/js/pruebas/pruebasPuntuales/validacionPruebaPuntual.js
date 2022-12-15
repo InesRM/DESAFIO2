@@ -1,3 +1,4 @@
+// Mario (todo el archivo)
 import {insertPruebaPuntual} from "../../http/httpProvider";
 import {limpiarForm} from "../pruebasComponentes";
 

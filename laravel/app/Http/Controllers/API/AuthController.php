@@ -16,12 +16,12 @@ use function Symfony\Component\String\b;
 
 class AuthController extends Controller
 {
-    public function login(Request $request)
+    public function login(Request $request) // Mario e Inés
     {   // en vez de hacerlo con el correo lo hago con el nombre.
         // no es determinante, va un poco a gusto de cad uno.
         // con un or en el if podrían valer los dos.
 
-        if (Auth::attempt(['name' => $request->name, 'password' => $request->password]) || Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $auth = Auth::user();
 
             switch ($auth->rol) { // dependiendo del rol le entrego un token u otro
@@ -45,7 +45,8 @@ class AuthController extends Controller
             }
 
             $success['token'] =  $auth->createToken($token['nombre'], $token['hab'])->plainTextToken;
-            $success['name'] =  $auth->name;
+            $success['id'] =  $auth->id;
+            $success['rol'] = $auth->rol;
 
             return response()->json(["success" => true, "data" => $success, "message" => "Logged in!"], 200);
         } else {
@@ -54,7 +55,7 @@ class AuthController extends Controller
     }
 
 
-    public function register(Request $request)
+    public function register(Request $request) // Mario e Inés
     {
         $messages = [
             'email' => 'El campo no se ajusta a un correo estándar',
@@ -75,10 +76,13 @@ class AuthController extends Controller
 
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);  //También vale: Hash::make($request->password)
+
+        $humano = new Humano;
         $user = User::create($input);
-        $humano = Humano::create($input);
+        $humano->id_humano = $user->id;
+        $humano->save();
+
         EnviarCorreo::enviarCorreo($request); // envio el correo de verificación
-        UserController::activarHumano($input); // activo el humano
         $success['token']  = $user->createToken('nuevo', ["User"])->plainTextToken;
         $success['name'] =  $user->name;
 
