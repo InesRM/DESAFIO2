@@ -13,7 +13,9 @@ class DiosFactory extends Factory
      * Define the model's default state.
      *
      * @return array<string, mixed>
+     * @author Ines
      */
+
     public function definition()
     {
         // *********************************DE MOMENTO NO SE USA....********************
@@ -21,11 +23,6 @@ class DiosFactory extends Factory
             'id_dios' => $this->faker->unique()->numberBetween(1, 100),
             'id' => fake()->unique()->randomElement(User::pluck('id')),
             'name' => fake()->unique()->randomElement(['Zeus', 'Poseidon']),
-            // 'email' => fake()->unique()->safeEmail(),
-            // 'email_verified_at' => now(),
-            // 'password' => bcrypt('1234'), // password
-            // 'rol' => 'dios',
-            // 'activo' => 0,
             'sabiduria' => fake()->randomElement(User::pluck('sabiduria')),
             'nobleza' => fake()->randomElement(User::pluck('nobleza')),
             'virtud' => fake()->randomElement(User::pluck('virtud')),

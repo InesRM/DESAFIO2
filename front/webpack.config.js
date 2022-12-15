@@ -1,3 +1,4 @@
+
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require("copy-webpack-plugin");
@@ -20,9 +21,21 @@ const filesHTML = [
         chunks: ['crearPruebas']
     },
     {
+        filename: './html/landing.html',
+        chunks: ['landing']
+    },
+    {
+        filename: './html/ok.html',
+        chunks: ['ok']
+    },
+    {
+        filename: './html/humano.html',
+        chunks: ['ok']
+    },
+    {
         filename: './html/asignarPruebas.html',
         chunks: ['asignarPruebas']
-    }
+    },
 ]
 
 module.exports = {
@@ -72,11 +85,15 @@ module.exports = {
         ]
     },
     entry: {
-        index: './src/index.js',
+        index: ['./src/index.js',
+                './src/js/login/login.js',],
         interfazHumano: './src/js/initInterfaces/interfazHumano.js',
         interfazDios: './src/js/initInterfaces/interfazDios.js',
         crearPruebas: './src/js/initInterfaces/crearPruebas.js',
-        asignarPruebas: './src/js/initInterfaces/asignarPruebas.js'
+        landing: './src/js/login/landing.js',
+        ok: './src/js/login/ok.js',
+        humano: './src/index.js',
+        asignarPruebas: './src/js/asignarPruebas/asignarPruebasComponentes.js'
     },
     optimization: {},
     plugins: [

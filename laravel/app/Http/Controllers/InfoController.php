@@ -14,6 +14,22 @@ use Illuminate\Support\Facades\DB;
 
 class InfoController extends Controller {
 
+    public function getDiosProtector(Request $request)
+    {
+        try {
+            $user= DB::table('humanos')->get();
+            $user = Humano::find($request->id);
+
+            $resp  = response()->json(['dios_protector' => $user->dios_protector], 200);
+        }
+        catch (\Exception $e) {
+            $resp = response()->json(['error' => 'ha ocurrido un error'], 204);
+        }
+
+        return $resp;
+    }
+
+
     public function getDestino(Request $request) {
         try {
             $user = Humano::find($request->id);

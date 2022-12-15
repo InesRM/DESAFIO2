@@ -4,6 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+  /**
+   * Summary of Dios
+   * @property int $id
+   * @property string $name
+   * @property string $email
+    * @package App\Models
+    * @author Ines
+    */
 
 class Dios extends Model
 {

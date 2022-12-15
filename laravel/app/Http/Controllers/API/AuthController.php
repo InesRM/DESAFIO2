@@ -13,18 +13,24 @@ use App\Http\Controllers\UserController;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Mail\SentMessage;
 use function Symfony\Component\String\b;
+/**
+ * @group Auth
+ * APIs para la autenticación
+ * @Validator
+ * @Registro, Login, Logout, Verificación de correo
+ * @package App\Http\Controllers\API
+ * @author Ines
+ */
+
 
 class AuthController extends Controller
 {
-    public function login(Request $request) // Mario e Inés
-    {   // en vez de hacerlo con el correo lo hago con el nombre.
-        // no es determinante, va un poco a gusto de cad uno.
-        // con un or en el if podrían valer los dos.
-
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+    public function login(Request $request) //Mario e Inés
+    {
+        if (Auth::attempt(['name' => $request->name, 'password' => $request->password]) || Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $auth = Auth::user();
 
-            switch ($auth->rol) { // dependiendo del rol le entrego un token u otro
+            switch ($auth->rol) {
                 case 'humano':
 
                     $token['nombre'] = 'tokenUser';
@@ -48,9 +54,12 @@ class AuthController extends Controller
             $success['id'] =  $auth->id;
             $success['rol'] = $auth->rol;
 
-            return response()->json(["success" => true, "data" => $success, "message" => "Logged in!"], 200);
+            response()->json(['success' =>true, $success], 200);
+
+            return redirect('http://localhost:8080/html/interfazHumano.html')->with('success', 'Usuario logueado correctamente');
         } else {
-            return response()->json(["success" => false, "message" => "Unauthorised"], 202);
+            response()->json(["success" => false, "message" => "Unauthorised"], 202);
+            return redirect('http://localhost:8080')->with('error', 'Usuario o contraseña incorrectos');;
         }
     }
 
@@ -71,7 +80,9 @@ class AuthController extends Controller
         ], $messages);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
+
+            response()->json($validator->errors(), 400);
+            return redirect()->back()->withErrors($validator->errors());
         }
 
         $input = $request->all();
@@ -86,7 +97,8 @@ class AuthController extends Controller
         $success['token']  = $user->createToken('nuevo', ["User"])->plainTextToken;
         $success['name'] =  $user->name;
 
-        return response()->json(["success" => true, "data" => $success, "message" => "User successfully registered!"], 200);
+        response()->json(['success' => true, $success], 200);
+        return redirect('http://localhost:8080/html/ok.html')->with('success', 'Usuario creado correctamente');
     }
 
 
@@ -94,7 +106,9 @@ class AuthController extends Controller
     {
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $cantidad = Auth::user()->tokens()->delete();
-            return response()->json(["success" => $cantidad, "message" => "Tokens Revoked"], 200);
+            // return response()->json(["success" => $cantidad, "message" => "Tokens Revoked"], 200);
+           response ()->json (["success" => $cantidad, "message" => "Tokens Revoked"], 200);
+            return redirect('http://localhost:8080/index.html')->with('success', 'Usuario deslogueado correctamente');
         } else {
             return response()->json(["success" => false, "message" => "Unauthorised"], 202);
         }

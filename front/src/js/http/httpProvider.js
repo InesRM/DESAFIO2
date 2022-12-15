@@ -1,10 +1,34 @@
+
 // Mario (todo el archivo)
 import {cargarUserLs} from "../localStorage/localStorage";
 
 const urlInfo = 'http://127.0.0.1:8000/api/general';
 const urlPruebas = 'http://127.0.0.1:8000/api/pruebas';
+const urlConsultas = 'http://127.0.0.1:8000/api/getDiosProtector/33';
+// const urlLogin = 'http://localhost:8000/api/users/login';
 
-const user = cargarUserLs();
+
+/**@author Ines 
+ * dios_protector
+*/
+
+
+export const fetchDiosProtector = async() => { // Inés
+
+    try {
+        const resp= await fetch(urlConsultas);
+
+        const data = await resp.json();
+        JSON.stringify(data);
+        
+        return data.dios_protector;
+      
+    }
+    catch (error) {
+        throw error;
+    }
+}
+
 
 export const fetchDestino = async() => {
     try {
@@ -28,6 +52,7 @@ export const fetchDestino = async() => {
     }
 }
 
+
 export const fetchCaracteristicas = async() => {
     try {
         const resp = await fetch(urlInfo + '/getcaracteristicas/' + user.id, {
@@ -48,9 +73,9 @@ export const fetchCaracteristicas = async() => {
     }
 }
 
-export const updateCaracteristicas = async(caracteristicas) => { // EN CUARENTENA
-
+export const updateCaracteristicas = async(caracteristicas) => {
     const resp = await fetch(urlInfo + '/updatecaracteristicas/' + user.id, { // + el user
+
         method: 'PUT', 
         body: JSON.stringify(caracteristicas),
         headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + user.token} 
@@ -72,6 +97,7 @@ export const insertPreguntaEleccion = async(datos) => {
 }
 
 export const insertPruebaPuntual = async(datos) => {
+
     const resp = await fetch(urlPruebas
             + '/insertpruebapuntual/', {
         method: 'POST',

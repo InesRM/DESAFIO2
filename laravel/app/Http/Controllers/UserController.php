@@ -10,15 +10,53 @@ use GuzzleHttp\Promise\Each;
 use App\Models\Humano;
 use App\Http\Controllers\EnviarCorreo;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\HumanoController\AsignarDios;
 
-class UserController extends Controller // Ines*************************
+
+/**
+ * @group Humano
+ * APIs para la gestión de humanos
+ * @package App\Http\Controllers\API
+ * @author Ines
+ */
+
+
+class UserController extends Controller
 {
+
+    public function getDiosProtector(Request $request)
+    {
+        try {
+            $user= DB::table('humanos')->get();
+            $user = Humano::find($request->id);
+
+            $resp  = response()->json(['dios_protector' => $user->dios_protector], 200);
+        }
+        catch (\Exception $e) {
+            $resp = response()->json(['error' => 'ha ocurrido un error'], 204);
+        }
+
+        return $resp;
+    }
     public function mostrarHumanos()
     {
         $res = null;
         $Users = DB::table('users')->get();
         return response()->json($Users, 200);
     }
+
+
+    public function mostrarHumano(Request $request, $id)
+    {
+        $user = User::find($id);
+        $humano = DB::table('humanos')->where('id_humano', $id)->get();
+        if ($user == null) {
+            return response()->json("No existe el humano", 200);
+        } else {
+            return response()->json($humano, 200);
+        }
+    }
+
 
     public function mostrarVidaPorId($id)
     {
@@ -60,8 +98,7 @@ class UserController extends Controller // Ines*************************
                 'activo' => false,
 
             ]);
-            $new_Humano = Humano::create([    // Esto nos sirve para cuando se registra un usuario se cree un humano paralelamente
-                'id_humano' => $new_User->id,
+            $new_Humano = Humano::create([
                 'destino' => 0,
 
             ]);
@@ -80,22 +117,20 @@ class UserController extends Controller // Ines*************************
         }
     }
 
-    private function asignarDioses($humano) { // Mario e Inés
-        $dioses = DB::select('SELECT id FROM users WHERE rol LIKE "dios"'); // ids de los dioses (falta el where)
-        $atribDioses = DB::select('SELECT sabiduria, nobleza, virtud, maldad, audacia FROM users WHERE rol LIKE "dios"'); // atributos de los dioses (falta el where)
 
-
+    public function AsignarDios($humano)
+    {
+        $dioses = DB::select('SELECT id FROM users WHERE rol LIKE "dios"');
+        $atribDioses = DB::select('SELECT sabiduria, nobleza, virtud, maldad, audacia FROM users WHERE rol LIKE "dios" OR "hades"');
 
         $maxDiff = 0;
-        foreach ($atribDioses as $key => $atribDios) { // recorro el array con las características de cada dios
+        foreach ($atribDioses as $key => $atribDios) {
             $diff = 0;
-            foreach ($atribDios as $atributo => $valor) { // recorro las características de cada dios
-                $diff += abs($valor - $humano[$atributo]); // voy sumando la diferencia para obtener la total
+            foreach ($atribDios as $atributo => $valor) {
+                $diff += abs($valor - $humano[$atributo]);
             }
 
-            if ($diff > $maxDiff) $keyDios = $key;  // si la diferencia que tiene el humano con este dios es mayor que la máxima diferencia
-                                                    // que había con cualquier otro dios, guardo la clave de este dios para asignarlo como su
-                                                    // protector
+            if ($diff > $maxDiff) $keyDios = $key;
         }
 
         return $dioses[$keyDios]->id;
@@ -112,7 +147,7 @@ class UserController extends Controller // Ines*************************
 
         $h = Humano::find($user->id);
 
-        $h->idDios = $this->asignarDioses($user);
+        $h->idDios = $this->AsignarDios($user);
 
         $user->activo = 1;
 
@@ -126,6 +161,11 @@ class UserController extends Controller // Ines*************************
             $resp = ['mensaje' => 'ha ocurrido un error'];
         }
 
-        return response()->json($resp, 200);
+        response()->json($resp, 200);
+        return redirect('http://localhost:8080/html/landing.html')->with('mensaje', 'Humano activado');
     }
-}
+
+
+
+    }
+
